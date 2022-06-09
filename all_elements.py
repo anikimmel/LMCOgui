@@ -60,7 +60,7 @@ def make_window(theme=None):
                 [name('Frame'), sg.Frame('Frame', [[sg.T(s=15)]])],
                 [name('Column'), sg.Column([[sg.T(s=15)]])],
                 [name('Tab, TabGroup'), sg.TabGroup([[sg.Tab('Tab1',[[sg.T(s=(15,2))]]), sg.Tab('Tab2', [[]])]])],
-                [name('Pane'), sg.Pane([sg.Col([[sg.T('Pane 1')]]), sg.Col([[sg.T('Pane 2')]])])],
+                [name('Pane'), sg.Pane([sg.Col([[sg.T('Pane 2')]])])],
                 [name('Push'), sg.Push(), sg.T('Pushed over')],
                 [name('VPush'), sg.VPush()],
                 [name('Sizer'), sg.Sizer(1,1)],
