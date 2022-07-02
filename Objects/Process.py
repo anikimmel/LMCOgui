@@ -11,6 +11,7 @@ class Process:
     cost: float
     time: float
     score: int
+    methods: List[str]
     task_sequence: List[str]
 
 

@@ -1,7 +1,10 @@
 import PySimpleGUI as sg
 import os.path
 
+import slider_screen
+
 use_custom_titlebar = True if sg.running_trinket() else False
+
 
 def make_window(theme=None):
 
@@ -64,63 +67,67 @@ def make_window(theme=None):
               [sg.T('Lockheed Martin Demo GUI', font='_ 14', justification='c', expand_x=True)],
               [sg.Col(file_list_column)],
               [sg.Col([layout_l], p=20, vertical_alignment='t'), sg.Col([layout_c], p=20, vertical_alignment='t'), sg.Col([layout_r], p=20, vertical_alignment='t')],
-              [[sg.Push(), sg.Button('Next >>')]]]
+              [[sg.Push(), sg.Button('Next >>', key='nextwindow')]]]
 
     window = sg.Window('LMCO Demo', layout, finalize=True, right_click_menu=sg.MENU_RIGHT_CLICK_EDITME_VER_EXIT, keep_on_top=True, use_custom_titlebar=use_custom_titlebar)                                                   # Show 30% complete on ProgressBar
 
     return window
 
 
-window = make_window()
-
-while True:
-    event, values = window.read()
-    # sg.Print(event, values)
-    if event == sg.WIN_CLOSED or event == 'Exit':
-        break
-
-    if event == 'SelectAllMaterials':
-        for i in range(9):
-            window['matcheck'+str(i)].update(True)
-
-    if event == 'SelectAllManufacturing':
-        for i in range(6):
-            window['mancheck'+str(i)].update(True)
-
-    if event == 'SelectAllBusinesses':
-        for i in range(4):
-            window['buscheck'+str(i)].update(True)
-
-    if event == 'Edit Me':
-        sg.execute_editor(__file__)
-        
-    elif event == 'Version':
-        sg.popup_scrolled(sg.get_versions(), __file__, keep_on_top=True, non_blocking=True)
-        # Folder name was filled in, make a list of files in the folder
-        if event == "-FOLDER-":
-            folder = values["-FOLDER-"]
-            try:
-                # Get list of files in folder
-                file_list = os.listdir(folder)
-            except:
-                file_list = []
-
-            fnames = [
-                f
-                for f in file_list
-                if os.path.isfile(os.path.join(folder, f))
-                   and f.lower().endswith((".png", ".gif"))
-            ]
-            window["-FILE LIST-"].update(fnames)
-        elif event == "-FILE LIST-":  # A file was chosen from the listbox
-            try:
-                filename = os.path.join(
-                    values["-FOLDER-"], values["-FILE LIST-"][0]
-                )
-                window["-TOUT-"].update(filename)
-                window["-IMAGE-"].update(filename=filename)
-            except:
-                pass
-window.close()
+# window = make_window()
+#
+# while True:
+#     event, values = window.read()
+#     # sg.Print(event, values)
+#     if event == sg.WIN_CLOSED or event == 'Exit':
+#         break
+#
+#     if event == 'SelectAllMaterials':
+#         for i in range(9):
+#             window['matcheck'+str(i)].update(True)
+#
+#     if event == 'SelectAllManufacturing':
+#         for i in range(6):
+#             window['mancheck'+str(i)].update(True)
+#
+#     if event == 'SelectAllBusinesses':
+#         for i in range(4):
+#             window['buscheck'+str(i)].update(True)
+#
+#     if event == 'Edit Me':
+#         sg.execute_editor(__file__)
+#
+#     if event == 'nextwindow':
+#         window.close()
+#         window = slider_screen.make_window('DarkTeal12')
+#
+#     elif event == 'Version':
+#         sg.popup_scrolled(sg.get_versions(), __file__, keep_on_top=True, non_blocking=True)
+#         # Folder name was filled in, make a list of files in the folder
+#         if event == "-FOLDER-":
+#             folder = values["-FOLDER-"]
+#             try:
+#                 # Get list of files in folder
+#                 file_list = os.listdir(folder)
+#             except:
+#                 file_list = []
+#
+#             fnames = [
+#                 f
+#                 for f in file_list
+#                 if os.path.isfile(os.path.join(folder, f))
+#                    and f.lower().endswith((".png", ".gif"))
+#             ]
+#             window["-FILE LIST-"].update(fnames)
+#         elif event == "-FILE LIST-":  # A file was chosen from the listbox
+#             try:
+#                 filename = os.path.join(
+#                     values["-FOLDER-"], values["-FILE LIST-"][0]
+#                 )
+#                 window["-TOUT-"].update(filename)
+#                 window["-IMAGE-"].update(filename=filename)
+#             except:
+#                 pass
+# window.close()
 
 

@@ -18,11 +18,4 @@ def getDesigns():
     return designs, max_cost, max_time, max_weight
 
 
-def designNode():
-    designs = getDesigns()
-    rows = []
-    for design in designs:
-        layout = [sg.Frame('', [
-            [sg.Image(design.image)],
-            [sg.Col([sg.Text(design.name), [sg.Text()]])]
-        ])]
+

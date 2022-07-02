@@ -1,0 +1,99 @@
+[
+  {
+    "Name": "Haas-DM-3-axis",
+    "Capabilities": [
+      "3-Axis-Machining"
+    ],
+    "TimeCoefficient": 0.9,
+    "CostCoefficient": 1.1
+  },
+  {
+    "Name": "Haas-OM-5-axis",
+    "Capabilities": [
+      "5-Axis-Machining",
+      "3-Axis-Machining"
+    ],
+    "TimeCoefficient": 0.9,
+    "CostCoefficient": 1.1
+  },
+  {
+    "Name": "Trumpf-TruPrint3000",
+    "Capabilities": [
+      "SLM-Additive"
+    ],
+    "TimeCoefficient": 1,
+    "CostCoefficient": 1
+  },
+  {
+    "Name": "ExOne-Mflex",
+    "Capabilities": [
+      "Binder-Jet-Metal-Additive"
+    ],
+    "TimeCoefficient": 0.9,
+    "CostCoefficient": 0.9
+  },
+  {
+    "Name": "Stratasys-F170",
+    "Capabilities": [
+      "FDM-Additive"
+    ],
+    "TimeCoefficient": 1,
+    "CostCoefficient": 1
+  },
+  {
+    "Name": "Stratasys-Dimension-Elite",
+    "Capabilities": [
+      "FDM-Additive"
+    ],
+    "TimeCoefficient": 1.2,
+    "CostCoefficient": 0.9
+  },
+  {
+    "Name": "Support-Removal-Station",
+    "Capabilities": [
+      "Support-Removal"
+    ],
+    "TimeCoefficient": 1,
+    "CostCoefficient": 1
+  },
+  {
+    "Name": "Sintering-Station",
+    "Capabilities": [
+      "Sintering"
+    ],
+    "TimeCoefficient": 1,
+    "CostCoefficient": 1
+  },
+  {
+    "Name": "Polishing-Station",
+    "Capabilities": [
+      "Buffing"
+    ],
+    "TimeCoefficient": 1,
+    "CostCoefficient": 1
+  },
+  {
+    "Name": "Inspection-Station",
+    "Capabilities": [
+      "Inspection"
+    ],
+    "TimeCoefficient": 1,
+    "CostCoefficient": 1
+  },
+  {
+    "Name": "EngAbrasives-CNC-SP",
+    "Capabilities": [
+      "Shot-Peening"
+    ],
+    "TimeCoefficient": 0.9,
+    "CostCoefficient": 1
+  },
+  {
+    "Name": "Procudo-Laser-Peener",
+    "Capabilities": [
+      "Shot-Peening"
+    ],
+    "TimeCoefficient": 0.9,
+    "CostCoefficient": 1
+  }
+]
