@@ -1,12 +1,13 @@
-import simpleGUI_demo
+import init_screen
+from Utility import init_utilities
 import PySimpleGUI as sg
 import os
 import slider_screen
 import row_test
 
 if __name__ == '__main__':
-    window = simpleGUI_demo.make_window()
-
+    window = init_screen.make_window()
+    preferences = []
     while True:
         event, values = window.read()
         # sg.Print(event, values)
@@ -22,13 +23,14 @@ if __name__ == '__main__':
                 window['mancheck' + str(i)].update(True)
 
         if event == 'SelectAllBusinesses':
-            for i in range(4):
+            for i in range(2):
                 window['buscheck' + str(i)].update(True)
 
         if event == 'Edit Me':
             sg.execute_editor(__file__)
 
         if event == 'nextwindow':
+            preferences = init_utilities.save_preferences(values)
             window.close()
             window = slider_screen.make_window('DarkTeal12')
 

@@ -17,6 +17,7 @@
       "Binder-Jet-Metal-Additive-1",
       "Binder-Jet-Metal-Additive-2",
       "FDM-Additive-1"
-    ]
+    ],
+    "SupplierNames": ["Supplier-A"]
   }
 ]

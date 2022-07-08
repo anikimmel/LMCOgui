@@ -3,7 +3,7 @@ from typing import List
 
 
 @dataclass
-class Business:
+class Supplier:
     name: str
     methods: List[str]
 

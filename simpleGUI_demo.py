@@ -57,10 +57,9 @@ def make_window(theme=None):
                 [sg.Checkbox('Select All', key='SelectAllBusinesses', enable_events=True)],
                 [sg.Text('')],
                 [sg.Text('Supplier Groups')],
-                [sg.Checkbox('LMCO USA', key='buscheck0', enable_events=True)],
-                [sg.Checkbox('Key Supplier: amRaco', key='buscheck1', enable_events=True)],
-                [sg.Checkbox('Key Supplier: Kolwjaha Co.', key='buscheck2', enable_events=True)],
-                [sg.Checkbox('Group 2: Simfast Corp', key='buscheck3', enable_events=True)]], border_width=3)]
+                [sg.Checkbox('Supplier A', key='buscheck0', enable_events=True)],
+                [sg.Checkbox('Supplier B', key='buscheck1', enable_events=True)],
+                [sg.Checkbox('Key Supplier: Kolwjaha Co.', key='buscheck2', enable_events=True)]], border_width=3)]
 
     # Note - LOCAL Menu element is used (see about for how that's defined)
     layout = [[Menu([['File', ['Exit']], ['Edit', ['Edit Me', ]]],  k='-CUST MENUBAR-',p=0)],

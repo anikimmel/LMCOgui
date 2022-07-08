@@ -34,11 +34,11 @@ def make_window(theme=None):
     layout_r = [
                 [sg.Text('Optimization Constraints')],
                 [sg.Text('You may specify constraints which will be used for defining the optimization space.')],
-                [name('Mfg. Costs ($)'), sg.Input(s=7)],
-                [name('Max mass (kg)'), sg.Input(s=7)],
+                [name('Max Mfg. Costs ($)'), sg.Input(s=7)],
+                [name('Max Mass (kg)'), sg.Input(s=7)],
                 [name('Max Volume (m^3)'), sg.Input(s=7)],
                 [name('Max Prod. Time (hrs)'), sg.Input(s=7)],
-                [name('Max Lead Time (Days)'), sg.Input(s=7)]
+                [name('Max Lead Time (days)'), sg.Input(s=7)]
     ]
 
     # Note - LOCAL Menu element is used (see about for how that's defined)
