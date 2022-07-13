@@ -40,7 +40,7 @@ def create_rows(max_cost, max_mass, max_disp, max_time, cost_coef, mass_coef, di
                     sg.Col([layout_c], p=20, vertical_alignment='t')]]
         i += 1
         rows.append(content)
-    return rows
+    return rows, data
 
 
 def generate_score(max_cost, max_mass, max_disp, max_time, cost_coef, mass_coef, disp_coef,
