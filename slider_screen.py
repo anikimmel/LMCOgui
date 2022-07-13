@@ -44,7 +44,7 @@ def make_window(theme=None):
                 [name('Max Mfg. Costs ($)'), sg.Input(s=7, key="costs_max")],
                 [name('Max Mass (kg)'), sg.Input(s=7, key="mass_max")],
                 [name('Max Displacement (m)'), sg.Input(s=7, key="displacement_max")],
-                [name('Max Lead Time (days)'), sg.Input(s=7, key="days_max")]
+                [name('Max Lead Time (days)'), sg.Input(s=7, key="time_max")]
     ]
 
     # Note - LOCAL Menu element is used (see about for how that's defined)

@@ -1,4 +1,5 @@
 import json
+import requests
 from Utility import MaterialTypes
 # from pymongo import MongoClient
 
@@ -35,8 +36,7 @@ def construct_request(design, preferences, quantity, earliest_start, due):
     request = {"Name": "request" + str(request_counter), "Part": design, "SupplierNames": businesses,
                "Quantity": quantity, 'EarliestStartDate': earliest_start.replace(' ', 'T'),
                'DueDate': due.replace(' ', 'T')}
-    part_plan_info = open('C:\\Users\\Annie\\PycharmProjects\\LMCOgui\\Utility\\Data\\PartProcessPlans.json')
-    pp_info = json.load(part_plan_info)
+    pp_info = getProcessPlans()
     plans = []
     specific_materials = []
     for material in materials:
@@ -44,11 +44,25 @@ def construct_request(design, preferences, quantity, earliest_start, due):
     for plan in pp_info:
         if (plan['ManufacturingMethod'] in manufacturing) and (plan['Material'] in specific_materials):
             plans.append(plan['Name'])
-    part_plan_info.close()
     request['ProcessPlans'] = plans
+    r = requests.post('http://localhost:9090', json=json.dumps(request))
+    print(f"Status Code: {r.status_code}, Response: {r.json()}")
+
     print(len(plans))
     return json.dumps(request)
 
 
+def getProcessPlans():
+    part_plan_info = open('C:\\Users\\Annie\\PycharmProjects\\LMCOgui\\Utility\\Data\\PartProcessPlans.json')
+    plans = json.load(part_plan_info)
+    part_plan_info.close()
+    return plans
+
+
+def getSpecificPlan(plan_name):
+    plans = getProcessPlans()
+    for plan in plans:
+        if plan["Name"] == plan_name:
+            return plan
 
 
