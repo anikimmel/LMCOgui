@@ -1,19 +1,31 @@
+import PySimpleGUI as sg
+from Utility import MachiningTypes
+from Utility import MaterialTypes
+from Utility import Suppliers
+
 
 def save_preferences(values):
     materials = []
-    manufacturing = []
+    manufacturing_methods = []
     businesses = []
 
-    for i in range(9):
-        if values['matcheck' + str(i)]:
-            materials.append('matcheck' + str(i))
+    for material in MaterialTypes.materials:
+        if values[material]:
+            materials.append(material)
 
-    for i in range(6):
-        if values['mancheck' + str(i)]:
-            manufacturing.append('mancheck' + str(i))
+    for manufacturing in MachiningTypes.machiningTypes:
+        if values[manufacturing]:
+            manufacturing_methods.append(manufacturing)
 
-    for i in range(2):
-        if values['buscheck' + str(i)]:
-            businesses.append('buscheck' + str(i))
+    for business in Suppliers.suppliers:
+        if values[business]:
+            businesses.append(business)
 
-    return materials, manufacturing, businesses
+    return materials, manufacturing_methods, businesses
+
+
+def create_checkboxes(options, category):
+    checkboxes = [[sg.Checkbox('Select All', key='SelectAll' + category, enable_events=True)]]
+    for option in options:
+        checkboxes.append([sg.Checkbox(option, key=option, enable_events=True)])
+    return checkboxes

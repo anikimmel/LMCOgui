@@ -1,68 +1,53 @@
 import init_screen
 from Utility import init_utilities
+from Utility import MaterialTypes
+from Utility import MachiningTypes
+from Utility import Suppliers
+from Utility import db_utils
 import PySimpleGUI as sg
-import os
 import slider_screen
 import row_test
 
 if __name__ == '__main__':
     window = init_screen.make_window()
     preferences = []
+    selectAllMat_cur = False
+    selectAllMan_cur = False
+    selectAllBus_cur = False
     while True:
         event, values = window.read()
-        # sg.Print(event, values)
         if event == sg.WIN_CLOSED or event == 'Exit':
             break
 
         if event == 'SelectAllMaterials':
-            for i in range(9):
-                window['matcheck' + str(i)].update(True)
+            selectAllMat_cur = not selectAllMat_cur
+            for material in MaterialTypes.materials:
+                window[material].update(selectAllMat_cur)
 
         if event == 'SelectAllManufacturing':
-            for i in range(6):
-                window['mancheck' + str(i)].update(True)
+            selectAllMan_cur = not selectAllMan_cur
+            for machineType in MachiningTypes.machiningTypes:
+                window[machineType].update(selectAllMan_cur)
 
         if event == 'SelectAllBusinesses':
-            for i in range(2):
-                window['buscheck' + str(i)].update(True)
+            selectAllBus_cur = not selectAllBus_cur
+            for business in Suppliers.suppliers:
+                window[business].update(selectAllBus_cur)
 
         if event == 'Edit Me':
             sg.execute_editor(__file__)
 
         if event == 'nextwindow':
             preferences = init_utilities.save_preferences(values)
+            design = values['design_option']
+            request = db_utils.construct_request(design, preferences,
+                                                 values['quantity'], values['-CALStart-'], values['-CALEnd-'])
+            print(request)
             window.close()
             window = slider_screen.make_window('DarkTeal12')
 
         if event == 'generateoptions':
+            print(values)
             window.close()
             window = row_test.make_window()
-
-        elif event == 'Version':
-            sg.popup_scrolled(sg.get_versions(), __file__, keep_on_top=True, non_blocking=True)
-            # Folder name was filled in, make a list of files in the folder
-            if event == "-FOLDER-":
-                folder = values["-FOLDER-"]
-                try:
-                    # Get list of files in folder
-                    file_list = os.listdir(folder)
-                except:
-                    file_list = []
-
-                fnames = [
-                    f
-                    for f in file_list
-                    if os.path.isfile(os.path.join(folder, f))
-                       and f.lower().endswith((".png", ".gif"))
-                ]
-                window["-FILE LIST-"].update(fnames)
-            elif event == "-FILE LIST-":  # A file was chosen from the listbox
-                try:
-                    filename = os.path.join(
-                        values["-FOLDER-"], values["-FILE LIST-"][0]
-                    )
-                    window["-TOUT-"].update(filename)
-                    window["-IMAGE-"].update(filename=filename)
-                except:
-                    pass
     window.close()

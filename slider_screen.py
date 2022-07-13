@@ -23,22 +23,28 @@ def make_window(theme=None):
     layout_l = [
                 [sg.Text('Multi-Objective Parameters')],
                 [sg.Text('You may specify weights on various performance objectives.')],
-                [name('Manufacturing Costs'), sg.Slider((0.0, 1.0), orientation='h', resolution=0.1, enable_events=True, tick_interval=0.2)],
-                [name('Design Mass'), sg.Slider((0.0, 1.0), orientation='h', resolution=0.1, enable_events=True, tick_interval=0.2)],
-                [name('Design Volume'), sg.Slider((0.0, 1.0), orientation='h', resolution=0.1, enable_events=True, tick_interval=0.2)],
-                [name('Production Time'), sg.Slider((0.0, 1.0), orientation='h', resolution=0.1, enable_events=True, tick_interval=0.2)],
-                [name('Lead Time'), sg.Slider((0.0, 1.0), orientation='h', resolution=0.1, enable_events=True, tick_interval=0.2)]
+                [name('Manufacturing Costs'),
+                 sg.Slider((0.0, 1.0), orientation='h', resolution=0.1, enable_events=True, tick_interval=0.2,
+                           key="costs_coef")],
+                [name('Design Mass'),
+                 sg.Slider((0.0, 1.0), orientation='h', resolution=0.1, enable_events=True, tick_interval=0.2,
+                           key="mass_coef")],
+                [name('Displacement'),
+                 sg.Slider((0.0, 1.0), orientation='h', resolution=0.1, enable_events=True, tick_interval=0.2,
+                           key="displacement_coef")],
+                [name('Lead Time'),
+                 sg.Slider((0.0, 1.0), orientation='h', resolution=0.1, enable_events=True, tick_interval=0.2,
+                           key="time_coef")]
 
     ]
 
     layout_r = [
                 [sg.Text('Optimization Constraints')],
                 [sg.Text('You may specify constraints which will be used for defining the optimization space.')],
-                [name('Max Mfg. Costs ($)'), sg.Input(s=7)],
-                [name('Max Mass (kg)'), sg.Input(s=7)],
-                [name('Max Volume (m^3)'), sg.Input(s=7)],
-                [name('Max Prod. Time (hrs)'), sg.Input(s=7)],
-                [name('Max Lead Time (days)'), sg.Input(s=7)]
+                [name('Max Mfg. Costs ($)'), sg.Input(s=7, key="costs_max")],
+                [name('Max Mass (kg)'), sg.Input(s=7, key="mass_max")],
+                [name('Max Displacement (m)'), sg.Input(s=7, key="displacement_max")],
+                [name('Max Lead Time (days)'), sg.Input(s=7, key="days_max")]
     ]
 
     # Note - LOCAL Menu element is used (see about for how that's defined)
