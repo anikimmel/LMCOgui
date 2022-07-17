@@ -28,4 +28,5 @@ def create_checkboxes(options, category):
     checkboxes = [[sg.Checkbox('Select All', key='SelectAll' + category, enable_events=True)]]
     for option in options:
         checkboxes.append([sg.Checkbox(option, key=option, enable_events=True)])
+    print(checkboxes)
     return checkboxes

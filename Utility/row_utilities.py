@@ -11,20 +11,19 @@ def name(name):
 
 
 def create_rows(max_cost, max_mass, max_disp, max_time, cost_coef, mass_coef, disp_coef, time_coef, response):
-    r = json.load(open('C:\\Users\\Annie\\PycharmProjects\\LMCOgui\\Utility\\Data\\bids-example.json'))
-    data = r["data"]
+    data = response["data"]
     rows = []
     i = 0
     for bid in data:
-        plan = db_utils.getSpecificPlan(bid["ProcessPlan"])
+        plan = db_utils.getSpecificPlan(bid["processPlan"])
         score = generate_score(max_cost, max_mass, max_disp, max_time, cost_coef, mass_coef, disp_coef, time_coef,
-                               float(bid["cost"]), float(bid["leadTime"]), plan(["NetGrams"]), 2)
+                               float(bid["cost"]), float(bid["leadTime"]), float(plan["NetGrams"]), 0.05)
         layout_l = [sg.Image(sg.EMOJI_BASE64_HAPPY_THUMBS_UP)]
 
         layout_bars = [[name('Cost'), sg.ProgressBar(max_cost, orientation='h', s=(10, 20), k=('-CBAR-'+str(i)))],
                        [name('Time'), sg.ProgressBar(max_time, orientation='h', s=(10, 20), k=('-TBAR-'+str(i)))],
                        [name('Mass'), sg.ProgressBar(max_mass, orientation='h', s=(10, 20), k=('-MBAR-'+str(i)))],
-                       [name('Displacement'), sg.ProgressBar(max_mass, orientation='h', s=(10, 20), k='-DBAR-')]]
+                       [name('Displacement'), sg.ProgressBar(max_disp, orientation='h', s=(10, 20), k=('-DBAR-'+str(i)))]]
 
         layout_buttons = [
             [sg.Col([[sg.Button('Design File'), sg.Button('Supplier Info')]])],
@@ -40,6 +39,7 @@ def create_rows(max_cost, max_mass, max_disp, max_time, cost_coef, mass_coef, di
                     sg.Col([layout_c], p=20, vertical_alignment='t')]]
         i += 1
         rows.append(content)
+    print(rows)
     return rows, data
 
 

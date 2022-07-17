@@ -34,7 +34,7 @@ def construct_request(design, preferences, quantity, earliest_start, due):
     manufacturing = preferences[1]
     businesses = preferences[2]
     request = {"Name": "request" + str(request_counter), "Part": design, "SupplierNames": businesses,
-               "Quantity": quantity, 'EarliestStartDate': earliest_start.replace(' ', 'T'),
+               "Quantity": int(quantity), 'EarliestStartDate': earliest_start.replace(' ', 'T'),
                'DueDate': due.replace(' ', 'T')}
     pp_info = getProcessPlans()
     plans = []
@@ -45,11 +45,11 @@ def construct_request(design, preferences, quantity, earliest_start, due):
         if (plan['ManufacturingMethod'] in manufacturing) and (plan['Material'] in specific_materials):
             plans.append(plan['Name'])
     request['ProcessPlans'] = plans
-    r = requests.post('http://localhost:9090', json=json.dumps(request))
+    r = requests.post('http://localhost:9090/generate-bid', data=json.dumps(request))
     print(f"Status Code: {r.status_code}, Response: {r.json()}")
 
-    print(len(plans))
-    return json.dumps(request)
+    # returns the response
+    return r.json()
 
 
 def getProcessPlans():

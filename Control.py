@@ -1,12 +1,11 @@
 import init_screen
-from Utility import init_utilities
-from Utility import MaterialTypes
-from Utility import MachiningTypes
-from Utility import Suppliers
-from Utility import db_utils
+import results_screen
+from Utility import init_utilities, MaterialTypes, MachiningTypes, Suppliers, db_utils, slider_utilities
 import PySimpleGUI as sg
 import slider_screen
-import row_test
+import subprocess
+
+subprocess.Popen(["C:\\Users\\Annie\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"])
 
 if __name__ == '__main__':
     window = init_screen.make_window()
@@ -14,6 +13,7 @@ if __name__ == '__main__':
     selectAllMat_cur = False
     selectAllMan_cur = False
     selectAllBus_cur = False
+    results = []
     while True:
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == 'Exit':
@@ -40,14 +40,13 @@ if __name__ == '__main__':
         if event == 'nextwindow':
             preferences = init_utilities.save_preferences(values)
             design = values['design_option']
-            request = db_utils.construct_request(design, preferences,
+            results = db_utils.construct_request(design, preferences,
                                                  values['quantity'], values['-CALStart-'], values['-CALEnd-'])
-            print(request)
             window.close()
             window = slider_screen.make_window('DarkTeal12')
 
         if event == 'generateoptions':
-            print(values)
+            parameters = slider_utilities.generate_parameters(values)
             window.close()
-            window = row_test.make_window()
+            window = results_screen.make_window(parameters, results)
     window.close()
