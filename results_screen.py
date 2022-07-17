@@ -22,13 +22,11 @@ def make_window(parameters, response):
         Menu = sg.Menu
 
     rows, bids = row_utilities.create_rows(max_cost, max_mass, max_disp, max_time, cost_coef, mass_coef, disp_coef, time_coef, response)
-    if len(rows) > 4:
-        rows = rows[0:4]
-        bids = bids[0:4]
     # Note - LOCAL Menu element is used (see about for how that's defined)
     layout = [[Menu([['File', ['Exit']], ['Edit', ['Edit Me', ]]], k='-CUST MENUBAR-', p=0)],
-              [sg.T('Lockheed Martin Demo GUI', font='_ 14', justification='c', expand_x=True)]]
-    layout = layout + rows
+              [sg.T('Lockheed Martin Demo GUI', font='_ 14', justification='c', expand_x=True)],
+              [sg.Text("Sort: "), sg.OptionMenu(['Highest Score', 'Fastest', 'Cheapest', 'Lightest'], s=(15, 2), key='design_option')],
+              [sg.Col(rows, scrollable=True)]]
 
     window = sg.Window('LMCO Demo', layout, finalize=True, right_click_menu=sg.MENU_RIGHT_CLICK_EDITME_VER_EXIT,
                        keep_on_top=True, use_custom_titlebar=use_custom_titlebar)  # Show 30% complete on ProgressBar
