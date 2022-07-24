@@ -29,7 +29,7 @@ request_counter = 0
 #         Collection.insert_one(file_data)
 
 
-def construct_request(design, preferences, quantity, earliest_start, due):
+def getBids(design, preferences, quantity, earliest_start, due):
     materials = preferences[0]
     manufacturing = preferences[1]
     businesses = preferences[2]
@@ -48,8 +48,7 @@ def construct_request(design, preferences, quantity, earliest_start, due):
     r = requests.post('http://localhost:9090/generate-bid', data=json.dumps(request))
     print(f"Status Code: {r.status_code}, Response: {r.json()}")
 
-    # returns the response
-    return r.json()
+    return processResponse(r.json())
 
 
 def getProcessPlans():
@@ -66,3 +65,32 @@ def getSpecificPlan(plan_name):
             return plan
 
 
+def processResponse(response):
+    data = response["data"]
+    max_cost = 0
+    max_time = 0
+    max_mass = 0
+    clean_bids = []
+    for bid in data:
+        plan = getSpecificPlan(bid["processPlan"])
+        if float(bid["cost"]) > max_cost:
+            max_cost = float(bid["cost"])
+        if float(bid["leadTime"]) > max_time:
+            max_time = float(bid["leadTime"])
+        if float(plan["NetGrams"]) > max_mass:
+            max_mass = float(plan["NetGrams"])
+
+        clean_bid = {
+            "cost": float(bid["cost"]),
+            "time": float(bid["leadTime"]),
+            "mass": float(plan["NetGrams"]),
+            "link": plan["Link"]
+        }
+        clean_bids.append(clean_bid)
+
+    dataMaxes = {
+        "cost": max_cost,
+        "time": max_time,
+        "mass": max_mass
+    }
+    return clean_bids, dataMaxes

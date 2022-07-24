@@ -14,6 +14,8 @@ if __name__ == '__main__':
     selectAllMan_cur = False
     selectAllBus_cur = False
     results = []
+    dataMaxes = {}
+    parameters = []
     while True:
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == 'Exit':
@@ -40,13 +42,31 @@ if __name__ == '__main__':
         if event == 'nextwindow':
             preferences = init_utilities.save_preferences(values)
             design = values['design_option']
-            results = db_utils.construct_request(design, preferences,
-                                                 values['quantity'], values['-CALStart-'], values['-CALEnd-'])
+            results, dataMaxes = db_utils.getBids(design, preferences,
+                                       values['quantity'], values['-CALStart-'], values['-CALEnd-'])
             window.close()
             window = slider_screen.make_window('DarkTeal12')
 
         if event == 'generateoptions':
             parameters = slider_utilities.generate_parameters(values)
             window.close()
-            window = results_screen.make_window(parameters, results)
+            window = results_screen.make_window(parameters, results, dataMaxes)
+
+        if event == 're-sort':
+            sort_on = ""
+            if values['sort_design_options'] == 'Highest Score':
+                sort_on = "score"
+                default_val = 'Highest Score'
+            if values['sort_design_options'] == 'Fastest':
+                sort_on = "time"
+                default_val = 'Fastest'
+            if values['sort_design_options'] == 'Cheapest':
+                sort_on = "cost"
+                default_val = 'Cheapest'
+            if values['sort_design_options'] == 'Lightest':
+                sort_on = "mass"
+                default_val = 'Lightest'
+            window.close()
+            window = results_screen.make_window(parameters, results, dataMaxes, sort_on, default_val)
+
     window.close()
