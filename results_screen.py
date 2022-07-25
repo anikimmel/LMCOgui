@@ -30,7 +30,8 @@ def make_window(parameters, response, dataMaxes, sort_on="score", default_sort_v
               [sg.Text("Sort: "),
                sg.OptionMenu(['Highest Score', 'Fastest', 'Cheapest', 'Lightest'], s=(15, 2),
                              key='sort_design_options', default_value=default_sort_val),
-               sg.Button("Re-Sort!", key="re-sort", enable_events=True)],
+               sg.Button("Re-Sort!", key="re-sort", enable_events=True),
+               sg.Push(), sg.Button("View Graphs", key="graphs", enable_events=True)],
               [sg.Col(rows, scrollable=True)]]
 
     window = sg.Window('LMCO Demo', layout, finalize=True, right_click_menu=sg.MENU_RIGHT_CLICK_EDITME_VER_EXIT,

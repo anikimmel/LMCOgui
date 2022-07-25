@@ -4,8 +4,10 @@ from Utility import init_utilities, MaterialTypes, MachiningTypes, Suppliers, db
 import PySimpleGUI as sg
 import slider_screen
 import subprocess
+import graph_screen
 
-subprocess.Popen(["C:\\Users\\Annie\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"])
+subprocess.Popen(
+    ["C:\\Users\\Annie\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"])
 
 if __name__ == '__main__':
     window = init_screen.make_window()
@@ -21,6 +23,7 @@ if __name__ == '__main__':
         if event == sg.WIN_CLOSED or event == 'Exit':
             break
 
+        ##---INIT SCREEN CONTROLS---##
         if event == 'SelectAllMaterials':
             selectAllMat_cur = not selectAllMat_cur
             for material in MaterialTypes.materials:
@@ -43,15 +46,17 @@ if __name__ == '__main__':
             preferences = init_utilities.save_preferences(values)
             design = values['design_option']
             results, dataMaxes = db_utils.getBids(design, preferences,
-                                       values['quantity'], values['-CALStart-'], values['-CALEnd-'])
+                                                  values['quantity'], values['-CALStart-'], values['-CALEnd-'])
             window.close()
             window = slider_screen.make_window('DarkTeal12')
 
+        ##---SLIDER SCREEN CONTROLS---##
         if event == 'generateoptions':
             parameters = slider_utilities.generate_parameters(values)
             window.close()
             window = results_screen.make_window(parameters, results, dataMaxes)
 
+        ##---RESULTS SCREEN CONTROLS---##
         if event == 're-sort':
             sort_on = ""
             if values['sort_design_options'] == 'Highest Score':
@@ -68,5 +73,16 @@ if __name__ == '__main__':
                 default_val = 'Lightest'
             window.close()
             window = results_screen.make_window(parameters, results, dataMaxes, sort_on, default_val)
+        if event == "graphs":
+            window.close()
+            window = graph_screen.drawChart(results, 'time', 'cost')
 
+        ##---GRAPH SCREEN CONTROLS---##
+        if event == 'backtoresults':
+            window.close()
+            window = results_screen.make_window(parameters, results, dataMaxes)
+        if event == 'viewgraph':
+            x_sel = values["x_option"]
+            y_sel = values["y_option"]
+            graph_screen.updateChart(results, x_sel, y_sel)
     window.close()
