@@ -70,6 +70,7 @@ def processResponse(response):
     max_cost = 0
     max_time = 0
     max_mass = 0
+    max_disp = 0
     clean_bids = []
     for bid in data:
         plan = getSpecificPlan(bid["processPlan"])
@@ -79,12 +80,14 @@ def processResponse(response):
             max_time = float(bid["leadTime"])
         if float(plan["NetGrams"]) > max_mass:
             max_mass = float(plan["NetGrams"])
+        if float(plan["MaxDisplacement"]) > max_disp:
+            max_disp = float(plan["MaxDisplacement"])
 
         clean_bid = {
             "cost": float(bid["cost"]),
             "time": float(bid["leadTime"]),
             "mass": float(plan["NetGrams"]),
-            "disp": 0.05,
+            "disp": float(plan["MaxDisplacement"]),
             "link": plan["Link"]
         }
         clean_bids.append(clean_bid)
@@ -92,6 +95,7 @@ def processResponse(response):
     dataMaxes = {
         "cost": max_cost,
         "time": max_time,
-        "mass": max_mass
+        "mass": max_mass,
+        "disp": max_disp
     }
     return clean_bids, dataMaxes

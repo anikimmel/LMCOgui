@@ -14,7 +14,7 @@ def create_rows(max_cost, max_mass, max_disp, max_time, cost_coef, mass_coef, di
         if (bid["cost"] > max_cost) or (bid["time"] > max_time) or (bid["mass"] > max_mass):
             continue
         score = generate_score(cost_coef, mass_coef, disp_coef, time_coef, bid["cost"],
-                               bid["time"], bid["mass"], 0.05, dataMaxes)
+                               bid["time"], bid["mass"], bid["disp"], dataMaxes)
 
         layout_bars = [[name('Cost'), sg.ProgressBar(dataMaxes["cost"], orientation='h', s=(10, 20),
                                                      k=('-CBAR-'+bid["link"]), bar_color=("blue", "grey"))],
@@ -22,7 +22,7 @@ def create_rows(max_cost, max_mass, max_disp, max_time, cost_coef, mass_coef, di
                                                      k=('-TBAR-'+bid["link"]), bar_color=("blue", "grey"))],
                        [name('Mass'), sg.ProgressBar(dataMaxes["mass"], orientation='h', s=(10, 20),
                                                      k=('-MBAR-'+bid["link"]), bar_color=("blue", "grey"))],
-                       [name('Displacement'), sg.ProgressBar(0.1, orientation='h', s=(10, 20),
+                       [name('Displacement'), sg.ProgressBar(dataMaxes["disp"], orientation='h', s=(10, 20),
                                                              k=('-DBAR-'+bid["link"]), bar_color=("blue", "grey"))]]
 
         layout_buttons = [
@@ -49,7 +49,7 @@ def generate_score(cost_coef, mass_coef, disp_coef,
     return 100*(cost_coef * (dataMaxes["cost"]-cost)/dataMaxes["cost"]
                 + mass_coef * (dataMaxes["mass"]-mass)/dataMaxes["mass"]
                 + time_coef * (dataMaxes["time"]-time)/dataMaxes["time"]
-                + disp_coef * (0.1-displacement))
+                + disp_coef * (dataMaxes["disp"]-displacement)/dataMaxes["disp"])
 
 
 def sortRows(final_bids, value):

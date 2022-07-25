@@ -12,6 +12,7 @@ dataSize = 1000
 # Theme for pyplot
 plt.style.use('Solarize_Light2')
 
+
 # Helper Functions
 def draw_figure(canvas, figure):
     figure_canvas_agg = FigureCanvasTkAgg(figure, canvas)

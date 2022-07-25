@@ -41,5 +41,5 @@ def make_window(parameters, response, dataMaxes, sort_on="score", default_sort_v
         window['-CBAR-'+bid["link"]].update(bid["cost"])
         window['-MBAR-'+bid["link"]].update(bid["mass"])
         window['-TBAR-'+bid["link"]].update(bid["time"])
-        window['-DBAR-'+bid["link"]].update(0.05)
+        window['-DBAR-'+bid["link"]].update(bid["disp"])
     return window
