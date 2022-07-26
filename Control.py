@@ -76,6 +76,14 @@ if __name__ == '__main__':
         if event == "graphs":
             window.close()
             window = graph_screen.drawChart(results, 'time', 'cost')
+        if "supplier" in str(event):
+            for bid in results:
+                if bid["link"] == event[8:]:
+                    sg.popup("Suppliers: " + str(bid["suppliers"]) + "\n"
+                             + "Cost: " + str(bid["cost"]) + " ($)\n"
+                             + "Mass: " + str(bid["mass"]) + " (g)\n"
+                             + "Time: " + str(bid["time"]) + " (min)\n", title=bid["link"], keep_on_top=True)
+                    break
 
         ##---GRAPH SCREEN CONTROLS---##
         if event == 'backtoresults':

@@ -88,7 +88,8 @@ def processResponse(response):
             "time": float(bid["leadTime"]),
             "mass": float(plan["NetGrams"]),
             "disp": float(plan["MaxDisplacement"]),
-            "link": plan["Link"]
+            "link": plan["Link"],
+            "suppliers": bid["suppliers"]
         }
         clean_bids.append(clean_bid)
 
