@@ -45,10 +45,14 @@ if __name__ == '__main__':
         if event == 'nextwindow':
             preferences = init_utilities.save_preferences(values)
             design = values['design_option']
-            results, dataMaxes = db_utils.getBids(design, preferences,
-                                                  values['quantity'], values['-CALStart-'], values['-CALEnd-'])
-            window.close()
-            window = slider_screen.make_window(dataMaxes, 'DarkTeal12')
+            output = db_utils.getBids(design, preferences, values['quantity'], values['-CALStart-'], values['-CALEnd-'])
+            if len(output) != 2:
+                sg.popup(str(output) + "Please select new options.", title="Select new options", keep_on_top=True)
+            else:
+                results = output[0]
+                dataMaxes = output[1]
+                window.close()
+                window = slider_screen.make_window(dataMaxes, 'DarkTeal12')
 
         ##---SLIDER SCREEN CONTROLS---##
         if event == 'generateoptions':

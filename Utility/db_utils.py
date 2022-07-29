@@ -44,9 +44,16 @@ def getBids(design, preferences, quantity, earliest_start, due):
     for plan in pp_info:
         if (plan['ManufacturingMethod'] in manufacturing) and (plan['Material'] in specific_materials):
             plans.append(plan['Name'])
+
+    if not plans:
+        return "No process plans match your selections.\n"
+
     request['ProcessPlans'] = plans
     r = requests.post('http://localhost:9090/generate-bid', data=json.dumps(request))
     print(f"Status Code: {r.status_code}, Response: {r.json()}")
+
+    if not r.json()["data"]:
+        return "No suppliers can fulfill this request based on your selections.\n"
 
     return processResponse(r.json())
 
