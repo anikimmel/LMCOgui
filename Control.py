@@ -7,7 +7,7 @@ import subprocess
 import graph_screen
 
 subprocess.Popen(
-    ["C:\\Users\\Annie\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"])
+    ["C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"])
 
 if __name__ == '__main__':
     window = init_screen.make_window()
@@ -48,7 +48,7 @@ if __name__ == '__main__':
             results, dataMaxes = db_utils.getBids(design, preferences,
                                                   values['quantity'], values['-CALStart-'], values['-CALEnd-'])
             window.close()
-            window = slider_screen.make_window('DarkTeal12')
+            window = slider_screen.make_window(dataMaxes, 'DarkTeal12')
 
         ##---SLIDER SCREEN CONTROLS---##
         if event == 'generateoptions':
