@@ -1,24 +1,65 @@
 import PySimpleGUI as sg
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 
 # VARS CONSTS:
 _VARS = {'window': False,
          'fig_agg': False,
          'pltFig': False}
 
-dataSize = 1000
 
 # Theme for pyplot
 plt.style.use('Solarize_Light2')
 
 
 # Helper Functions
+def update_annot(ind, annot, sc, names):
+    pos = sc.get_offsets()[ind["ind"][0]]
+    annot.xy = pos
+    text = "{}".format(" ".join([names[n] for n in ind["ind"]]))
+    annot.set_text(text)
+    annot.get_bbox_patch().set_alpha(0.4)
+
+
+def hover(event, annot, sc, fig, ax, names):
+    vis = annot.get_visible()
+    if event.inaxes == ax:
+        cont, ind = sc.contains(event)
+        if cont:
+            update_annot(ind, annot, sc, names)
+            annot.set_visible(True)
+            fig.canvas.draw_idle()
+        else:
+            if vis:
+                annot.set_visible(False)
+                fig.canvas.draw_idle()
+
+
 def draw_figure(canvas, figure):
     figure_canvas_agg = FigureCanvasTkAgg(figure, canvas)
     figure_canvas_agg.draw()
     figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
     return figure_canvas_agg
+
+
+def draw_figure_w_toolbar(canvas, fig, canvas_toolbar):
+    if canvas.children:
+        for child in canvas.winfo_children():
+            child.destroy()
+    if canvas_toolbar.children:
+        for child in canvas_toolbar.winfo_children():
+            child.destroy()
+    figure_canvas_agg = FigureCanvasTkAgg(fig, master=canvas)
+    figure_canvas_agg.draw()
+    toolbar = Toolbar(figure_canvas_agg, canvas_toolbar)
+    toolbar.update()
+    figure_canvas_agg.get_tk_widget().pack(side='right', fill='both', expand=1)
+    return figure_canvas_agg
+
+
+class Toolbar(NavigationToolbar2Tk):
+    def __init__(self, *args, **kwargs):
+        super(Toolbar, self).__init__(*args, **kwargs)
 
 
 # \\  -------- PYSIMPLEGUI -------- //
@@ -32,12 +73,24 @@ def getData(bids, x_select, y_select):
         x_select = 'disp'
     if y_select == 'Displacement':
         y_select = 'disp'
-    return [bid[x_select.lower()] for bid in bids], [bid[y_select.lower()] for bid in bids]
+    return [bid[x_select.lower()] for bid in bids], [bid[y_select.lower()] for bid in bids], [bid["link"] for bid in bids]
 
 
 def drawChart(bids, x_select, y_select):
     layout = [[sg.Button('Back to Options List', font=AppFont, enable_events=True, key='backtoresults')],
-              [sg.Canvas(key='figCanvas', background_color='#FDF6E3')],
+                    [sg.T('Controls:')],
+                    [sg.Canvas(key='controls_cv')],
+                    [sg.T('Figure:')],
+                    [sg.Column(
+                    layout=[
+                        [sg.Canvas(key='fig_cv',
+                                   # it's important that you set this size
+                                   size=(400 * 2, 400)
+                                   )]
+                    ],
+                    background_color='#DAE0E6',
+                    pad=(0, 0)
+                )],
               [sg.Text("Select X"),
                sg.OptionMenu(['Time', 'Cost', 'Mass', 'Displacement'], s=(15, 2), key='x_option', default_value='Time'),
                sg.Text("Select Y"),
@@ -52,20 +105,40 @@ def drawChart(bids, x_select, y_select):
                                 background_color='#FDF6E3')
     _VARS['pltFig'] = plt.figure()
     dataXY = getData(bids, x_select, y_select)
-    plt.plot(dataXY[0], dataXY[1], '.k')
+    x = dataXY[0]
+    y = dataXY[1]
+    names = dataXY[2]
+    fig, ax = plt.subplots()
+    sc = plt.scatter(x, y)
+    annot = ax.annotate("", xy=(0, 0), xytext=(20, 20), textcoords="offset points",
+                        bbox=dict(boxstyle="round", fc="w"),
+                        arrowprops=dict(arrowstyle="->"))
+    annot.set_visible(False)
+    fig.canvas.mpl_connect("motion_notify_event", lambda event: hover(event, annot, sc, fig, ax, names))
     plt.xlabel(x_select)
     plt.ylabel(y_select)
-    _VARS['fig_agg'] = draw_figure(
-        _VARS['window']['figCanvas'].TKCanvas, _VARS['pltFig'])
+    DPI = fig.get_dpi()
+    fig.set_size_inches(404 * 2 / float(DPI), 404 / float(DPI))
+    _VARS['fig_agg'] = draw_figure_w_toolbar(_VARS['window']['fig_cv'].TKCanvas, fig, _VARS['window']['controls_cv'].TKCanvas)
     return _VARS['window']
 
 
 def updateChart(bids, x_select, y_select):
     _VARS['fig_agg'].get_tk_widget().forget()
-    dataXY = getData(bids, x_select, y_select)
     plt.clf()
-    plt.plot(dataXY[0], dataXY[1], '.k')
+    dataXY = getData(bids, x_select, y_select)
+    x = dataXY[0]
+    y = dataXY[1]
+    names = dataXY[2]
+    fig, ax = plt.subplots()
+    sc = plt.scatter(x, y)
+    annot = ax.annotate("", xy=(0, 0), xytext=(20, 20), textcoords="offset points",
+                        bbox=dict(boxstyle="round", fc="w"),
+                        arrowprops=dict(arrowstyle="->"))
+    annot.set_visible(False)
+    fig.canvas.mpl_connect("motion_notify_event", lambda event: hover(event, annot, sc, fig, ax, names))
     plt.xlabel(x_select)
     plt.ylabel(y_select)
-    _VARS['fig_agg'] = draw_figure(
-        _VARS['window']['figCanvas'].TKCanvas, _VARS['pltFig'])
+    DPI = fig.get_dpi()
+    fig.set_size_inches(404 * 2 / float(DPI), 404 / float(DPI))
+    _VARS['fig_agg'] = draw_figure_w_toolbar(_VARS['window']['fig_cv'].TKCanvas, fig, _VARS['window']['controls_cv'].TKCanvas)

@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 use_custom_titlebar = True if sg.running_trinket() else False
 
 
-def make_window(theme=None):
+def make_window(theme=None, dataMaxes):
 
     NAME_SIZE = 23
 
@@ -41,7 +41,7 @@ def make_window(theme=None):
     layout_r = [
                 [sg.Text('Optimization Constraints')],
                 [sg.Text('You may specify constraints which will be used for defining the optimization space.')],
-                [name('Max Mfg. Costs ($)'), sg.Input(s=7, key="costs_max")],
+                [name('Max Mfg. Costs ($)'), sg.Input(s=7, key="costs_max"), sg.Text("Data Maximum: $" + str(dataMaxes["cost"]))],
                 [name('Max Mass (kg)'), sg.Input(s=7, key="mass_max")],
                 [name('Max Displacement (m)'), sg.Input(s=7, key="displacement_max")],
                 [name('Max Lead Time (days)'), sg.Input(s=7, key="time_max")]
