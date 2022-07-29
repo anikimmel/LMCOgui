@@ -29,7 +29,7 @@ def make_window(dataMaxes, theme=None):
                 [name('Design Mass'),
                  sg.Slider((0.0, 1.0), orientation='h', resolution=0.1, enable_events=True, tick_interval=0.2,
                            key="mass_coef")],
-                [name('Displacement'),
+                [name('Max Displacement'),
                  sg.Slider((0.0, 1.0), orientation='h', resolution=0.1, enable_events=True, tick_interval=0.2,
                            key="displacement_coef")],
                 [name('Lead Time'),

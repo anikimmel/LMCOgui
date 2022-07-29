@@ -96,7 +96,8 @@ def processResponse(response):
             "mass": float(plan["NetGrams"]),
             "disp": float(plan["MaxDisplacement"]),
             "link": plan["Link"],
-            "suppliers": bid["suppliers"]
+            "suppliers": bid["suppliers"],
+            "processPlan": plan["Task_Sequence"]
         }
         clean_bids.append(clean_bid)
 

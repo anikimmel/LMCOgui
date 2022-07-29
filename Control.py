@@ -86,8 +86,16 @@ if __name__ == '__main__':
                     sg.popup("Suppliers: " + str(bid["suppliers"]) + "\n"
                              + "Cost: " + str(bid["cost"]) + " ($)\n"
                              + "Mass: " + str(bid["mass"]) + " (g)\n"
-                             + "Time: " + str(bid["time"]) + " (min)\n", title=bid["link"], keep_on_top=True)
+                             + "Time: " + str(bid["time"]) + " (min)\n"
+                             + "Displacement: " + str(bid["disp"]) + " (mm)\n", title=bid["link"], keep_on_top=True)
                     break
+
+        if "pplan" in str(event):
+            for bid in results:
+                if bid["link"] == event[5:]:
+                    sg.popup(str(bid["processPlan"]), title=bid["link"], keep_on_top=True)
+                    break
+
 
         ##---GRAPH SCREEN CONTROLS---##
         if event == 'backtoresults':

@@ -26,9 +26,10 @@ def create_rows(max_cost, max_mass, max_disp, max_time, cost_coef, mass_coef, di
                                                              k=('-DBAR-'+bid["link"]), bar_color=("blue", "grey"))]]
 
         layout_buttons = [
-            [sg.Col([[sg.Button('Design File'), sg.Button('Supplier Info', key=("supplier"+bid["link"]),
-                                                          enable_events=True)]])],
-            [sg.Col([[sg.Button('Process Plan'), sg.Button('Initiate Contract', button_color='green')]])]
+            [sg.Col([[sg.Button('Design File'),
+                      sg.Button('Supplier Info', key=("supplier"+bid["link"]), enable_events=True)]])],
+            [sg.Col([[sg.Button('Process Plan', key=("pplan"+bid["link"]), enable_events=True),
+                      sg.Button('Initiate Contract', button_color='green')]])]
         ]
 
         score_color = getScoreColor(float(score))
