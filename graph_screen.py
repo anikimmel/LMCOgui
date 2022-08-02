@@ -73,7 +73,8 @@ def getData(bids, x_select, y_select):
         x_select = 'disp'
     if y_select == 'Displacement':
         y_select = 'disp'
-    return [bid[x_select.lower()] for bid in bids], [bid[y_select.lower()] for bid in bids], [bid["link"] for bid in bids]
+    return [bid[x_select.lower()] for bid in bids], [bid[y_select.lower()] for bid in bids], \
+           [bid["link"] for bid in bids], [bid["color"] for bid in bids]
 
 
 def drawChart(bids, x_select, y_select):
@@ -108,8 +109,10 @@ def drawChart(bids, x_select, y_select):
     x = dataXY[0]
     y = dataXY[1]
     names = dataXY[2]
+    colors = dataXY[3]
+    print(colors)
     fig, ax = plt.subplots()
-    sc = plt.scatter(x, y)
+    sc = plt.scatter(x, y, c=colors, s=36, edgecolors='black')
     annot = ax.annotate("", xy=(0, 0), xytext=(20, 20), textcoords="offset points",
                         bbox=dict(boxstyle="round", fc="w"),
                         arrowprops=dict(arrowstyle="->"))
@@ -130,8 +133,9 @@ def updateChart(bids, x_select, y_select):
     x = dataXY[0]
     y = dataXY[1]
     names = dataXY[2]
+    colors = dataXY[3]
     fig, ax = plt.subplots()
-    sc = plt.scatter(x, y)
+    sc = plt.scatter(x, y, c=colors, s=36, edgecolors='black')
     annot = ax.annotate("", xy=(0, 0), xytext=(20, 20), textcoords="offset points",
                         bbox=dict(boxstyle="round", fc="w"),
                         arrowprops=dict(arrowstyle="->"))

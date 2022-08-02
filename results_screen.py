@@ -31,7 +31,13 @@ def make_window(parameters, response, dataMaxes, sort_on="score", default_sort_v
                sg.OptionMenu(['Highest Score', 'Fastest', 'Cheapest', 'Lightest'], s=(15, 2),
                              key='sort_design_options', default_value=default_sort_val),
                sg.Button("Re-Sort!", key="re-sort", enable_events=True),
+               sg.Button("Create New Request", key="backtoinit-results", enable_events=True),
                sg.Push(), sg.Button("View Graphs", key="graphs", enable_events=True)],
+              [sg.Text("Parameter Weights -- Cost: " + str(round(cost_coef, 3))
+                       + ", Mass: " + str(round(mass_coef, 3))
+                       + ", Lead Time: " + str(round(time_coef, 3))
+                       + ", Max Displacement: " + str(round(disp_coef, 3))), sg.Push(),
+               sg.Button("Change Objective Parameters", key='backtosliders', enable_events=True)],
               [sg.Col(rows, scrollable=True)]]
 
     window = sg.Window('LMCO Demo', layout, finalize=True, right_click_menu=sg.MENU_RIGHT_CLICK_EDITME_VER_EXIT,
@@ -42,4 +48,4 @@ def make_window(parameters, response, dataMaxes, sort_on="score", default_sort_v
         window['-MBAR-'+bid["link"]].update(bid["mass"])
         window['-TBAR-'+bid["link"]].update(bid["time"])
         window['-DBAR-'+bid["link"]].update(bid["disp"])
-    return window
+    return window, bids

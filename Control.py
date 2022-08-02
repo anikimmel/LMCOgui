@@ -5,9 +5,10 @@ import PySimpleGUI as sg
 import slider_screen
 import subprocess
 import graph_screen
+import webbrowser
 
 subprocess.Popen(
-    ["C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"])
+    ["C:\\Users\\Annie\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"])
 
 if __name__ == '__main__':
     window = init_screen.make_window()
@@ -58,7 +59,14 @@ if __name__ == '__main__':
         if event == 'generateoptions':
             parameters = slider_utilities.generate_parameters(values)
             window.close()
-            window = results_screen.make_window(parameters, results, dataMaxes)
+            window, results = results_screen.make_window(parameters, results, dataMaxes)
+        if event == 'agents':
+            webbrowser.open("http://localhost:9090/agents-graph")
+        if event == 'lots':
+            webbrowser.open("http://localhost:9090/lots-graph")
+        if event == 'backtoinit':
+            window.close()
+            window = init_screen.make_window()
 
         ##---RESULTS SCREEN CONTROLS---##
         if event == 're-sort':
@@ -76,7 +84,7 @@ if __name__ == '__main__':
                 sort_on = "mass"
                 default_val = 'Lightest'
             window.close()
-            window = results_screen.make_window(parameters, results, dataMaxes, sort_on, default_val)
+            window, results = results_screen.make_window(parameters, results, dataMaxes, sort_on, default_val)
         if event == "graphs":
             window.close()
             window = graph_screen.drawChart(results, 'time', 'cost')
@@ -86,21 +94,25 @@ if __name__ == '__main__':
                     sg.popup("Suppliers: " + str(bid["suppliers"]) + "\n"
                              + "Cost: " + str(bid["cost"]) + " ($)\n"
                              + "Mass: " + str(bid["mass"]) + " (g)\n"
-                             + "Time: " + str(bid["time"]) + " (min)\n"
+                             + "Time: " + str(bid["time"]) + " (sec)\n"
                              + "Displacement: " + str(bid["disp"]) + " (mm)\n", title=bid["link"], keep_on_top=True)
                     break
-
         if "pplan" in str(event):
             for bid in results:
                 if bid["link"] == event[5:]:
                     sg.popup(str(bid["processPlan"]), title=bid["link"], keep_on_top=True)
                     break
-
+        if event == "backtosliders":
+            window.close()
+            window = slider_screen.make_window(dataMaxes, 'DarkTeal12')
+        if event == "backtoinit-results":
+            window.close()
+            window = init_screen.make_window()
 
         ##---GRAPH SCREEN CONTROLS---##
         if event == 'backtoresults':
             window.close()
-            window = results_screen.make_window(parameters, results, dataMaxes)
+            window, results = results_screen.make_window(parameters, results, dataMaxes)
         if event == 'viewgraph':
             x_sel = values["x_option"]
             y_sel = values["y_option"]

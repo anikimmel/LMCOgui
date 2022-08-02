@@ -59,7 +59,7 @@ def getBids(design, preferences, quantity, earliest_start, due):
 
 
 def getProcessPlans():
-    part_plan_info = open('C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\PartProcessPlans.json')
+    part_plan_info = open('C:\\Users\\Annie\\PycharmProjects\\LMCOgui\\Utility\\Data\\PartProcessPlans.json')
     plans = json.load(part_plan_info)
     part_plan_info.close()
     return plans
