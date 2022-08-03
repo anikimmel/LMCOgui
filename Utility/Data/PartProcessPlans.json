@@ -292,7 +292,7 @@
   {
     "Name": "3-Axis-Subtractive-5",
     "Part": "Bracket",
-    "Link": "Ti6Al4V_2.5_axis_milling_y+y",
+    "Link": "Ti6Al4V_2.5_axis_milling_y+y-",
     "Material": "Ti6Al4V",
     "ManufacturingMethod": "3-Axis-Subtractive",
     "BulkGrams": 5800,

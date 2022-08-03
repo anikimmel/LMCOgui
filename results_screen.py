@@ -34,11 +34,17 @@ def make_window(parameters, response, dataMaxes, sort_on="score", default_sort_v
                sg.Button("Re-Sort!", key="re-sort", enable_events=True),
                sg.Button("Create New Request", key="backtoinit-results", enable_events=True),
                sg.Push(), sg.Button("View Graphs", key="graphs", enable_events=True)],
-              [sg.Text("Parameter Weights -- Cost: " + str(round(cost_coef, 3))
-                       + ", Mass: " + str(round(mass_coef, 3))
-                       + ", Lead Time: " + str(round(time_coef, 3))
-                       + ", Max Displacement: " + str(round(disp_coef, 3))), sg.Push(),
-               sg.Button("Change Objective Parameters", key='backtosliders', enable_events=True)],
+              [sg.Text("Parameter Weights: "), sg.Button("Change Objective Parameters",
+                                                         key='backtosliders', enable_events=True)],
+              [sg.Text("Cost: " + str(round(cost_coef, 3))),
+               sg.Canvas(background_color=row_utilities.getParamBarColor(cost_coef), size=(20, 20)),
+               sg.Text("Mass: " + str(round(mass_coef, 3))),
+               sg.Canvas(background_color=row_utilities.getParamBarColor(mass_coef), size=(20, 20)),
+               sg.Text("Lead Time: " + str(round(time_coef, 3))),
+               sg.Canvas(background_color=row_utilities.getParamBarColor(time_coef), size=(20, 20)),
+               sg.Text("Max Displacement: " + str(round(disp_coef, 3))),
+               sg.Canvas(background_color=row_utilities.getParamBarColor(disp_coef), size=(20, 20))
+               ],
               [sg.Col(rows, scrollable=True)]]
 
     window = sg.Window('LMCO Demo', layout, finalize=True, right_click_menu=sg.MENU_RIGHT_CLICK_EDITME_VER_EXIT,

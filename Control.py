@@ -8,7 +8,7 @@ import graph_screen
 import webbrowser
 
 proc = subprocess.Popen(
-    ["C:\\Users\\Annie\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"])
+    ["C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"])
 
 if __name__ == '__main__':
     window = init_screen.make_window()
