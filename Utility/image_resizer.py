@@ -11,8 +11,8 @@ def resizeAndCrop(imgPath):
     x, y = im.size
 
     # New sizes
-    yNew = 75
-    xNew = 75 # should be equal
+    yNew = 110
+    xNew = 110 # should be equal
 
 
     # resize
@@ -20,7 +20,7 @@ def resizeAndCrop(imgPath):
 
     # save
     print("SAVE", imgPath)
-    resizedImage.save("C:\\Users\\akimmel\\Downloads\\Generative_Design_Data\\Generative_Design_Data\\" + str(part) + "\\part75x75.png")
+    resizedImage.save("C:\\Users\\akimmel\\Downloads\\Generative_Design_Data\\Generative_Design_Data\\" + str(part) + "\\part110x110.png")
 
 
 for part in os.listdir("C:\\Users\\akimmel\\Downloads\\Generative_Design_Data\\Generative_Design_Data\\"):

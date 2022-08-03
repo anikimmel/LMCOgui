@@ -37,7 +37,7 @@ def create_rows(max_cost, max_mass, max_disp, max_time, cost_coef, mass_coef, di
         ]
 
         score_color, hex = getScoreColor(float(score))
-        layout_c = [sg.Image(getImagePath(bid["link"]), size=(75, 75)),
+        layout_c = [sg.Image(getImagePath(bid["link"])),
                     sg.Pane([sg.Col([[sg.T('Score' + '\n' + str(round(score, 2)), justification='c',
                                            background_color=score_color)]], background_color=score_color)],
                             background_color=score_color),
@@ -100,4 +100,4 @@ def getParamBarColor(coef):
 
 
 def getImagePath(link):
-    return "C:\\Users\\akimmel\\Downloads\\Generative_Design_Data\\Generative_Design_Data\\" + str(link) + "\\part75x75.png"
+    return "C:\\Users\\akimmel\\Downloads\\Generative_Design_Data\\Generative_Design_Data\\" + str(link) + "\\part110x110.png"
