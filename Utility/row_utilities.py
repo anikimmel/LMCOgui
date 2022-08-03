@@ -35,9 +35,8 @@ def create_rows(max_cost, max_mass, max_disp, max_time, cost_coef, mass_coef, di
             [sg.Col([[sg.Button('Process Plan', key=("pplan"+bid["link"]), enable_events=True),
                       sg.Button('Initiate Contract', button_color='green')]])]
         ]
-
         score_color, hex = getScoreColor(float(score))
-        layout_c = [sg.Image(getImagePath(bid["link"])),
+        layout_c = [sg.Image(getImagePath(bid["link"], False)),
                     sg.Pane([sg.Col([[sg.T('Score' + '\n' + str(round(score, 2)), justification='c',
                                            background_color=score_color)]], background_color=score_color)],
                             background_color=score_color),
@@ -47,6 +46,7 @@ def create_rows(max_cost, max_mass, max_disp, max_time, cost_coef, mass_coef, di
         bid["score"] = score
         bid["content"] = content
         bid["color"] = hex
+        bid["pic"] = getImagePath(bid["link"], True)
         final_bids.append(bid)
     return final_bids
 
@@ -90,14 +90,28 @@ def getScoreColor(score):
 
 
 def getParamBarColor(coef):
-    if coef >= 0.75:
+    if coef >= 0.9:
+        return 'midnight blue'
+    if coef >= 0.8:
         return 'navy'
-    if coef >= 0.5:
+    if coef >= 0.7:
+        return 'medium blue'
+    if coef >= 0.6:
         return 'blue2'
-    if coef >= 0.25:
+    if coef >= 0.5:
+        return 'blue'
+    if coef >= 0.4:
         return 'dodger blue'
-    return 'SteelBlue2'
+    if coef >= 0.3:
+        return 'DeepSkyBlue3'
+    if coef >= 0.2:
+        return 'deep sky blue'
+    if coef >= 0.1:
+        return 'SkyBlue1'
+    return 'LightSkyBlue1'
 
 
-def getImagePath(link):
-    return "C:\\Users\\akimmel\\Downloads\\Generative_Design_Data\\Generative_Design_Data\\" + str(link) + "\\part110x110.png"
+def getImagePath(link, isGraphImage):
+    path = "C:\\Users\\akimmel\\Downloads\\Generative_Design_Data\\Generative_Design_Data\\"
+    suffix = "\\part75x75.png" if isGraphImage else "\\part110x110.png"
+    return path + str(link) + suffix

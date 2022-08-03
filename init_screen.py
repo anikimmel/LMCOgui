@@ -41,6 +41,7 @@ def make_window(theme=None):
                sg.CalendarButton('Due Date', target='-CALEnd-', pad=None,
                                  font=('MS Sans Serif', 10, 'bold'), key='_CALENDAR_E_'),
                sg.In(key='-CALEnd-', enable_events=True, visible=True, s=(25, 3))],
+              [sg.HSep()],
               [sg.Col([layout_l], p=20, vertical_alignment='t'), sg.Col([layout_c], p=20, vertical_alignment='t'),
                sg.Col([layout_r], p=20, vertical_alignment='t')],
               [[sg.Push(), sg.Button('Next >>', key='nextwindow')]]]

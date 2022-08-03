@@ -67,6 +67,9 @@ if __name__ == '__main__':
         if event == 'backtoinit':
             window.close()
             window = init_screen.make_window()
+            selectAllMat_cur = False
+            selectAllMan_cur = False
+            selectAllBus_cur = False
 
         ##---RESULTS SCREEN CONTROLS---##
         if event == 're-sort':
@@ -83,8 +86,12 @@ if __name__ == '__main__':
             if values['sort_design_options'] == 'Lightest':
                 sort_on = "mass"
                 default_val = 'Lightest'
+            if values['sort_design_options'] == 'Firmest':
+                sort_on = "disp"
+                default_val = 'Firmest'
             window.close()
             window, results = results_screen.make_window(parameters, results, dataMaxes, sort_on, default_val)
+
         if event == "graphs":
             window.close()
             window = graph_screen.drawChart(results, 'time', 'cost')
@@ -93,9 +100,11 @@ if __name__ == '__main__':
                 if bid["link"] == event[8:]:
                     sg.popup("Suppliers: " + str(bid["suppliers"]) + "\n"
                              + "Cost: " + str(bid["cost"]) + " ($)\n"
-                             + "Mass: " + str(bid["mass"]) + " (g)\n"
+                             + "Mass: " + str(round(bid["mass"], 3)) + " (g)\n"
                              + "Lead Time: " + str(bid["time"]) + " (sec)\n"
-                             + "Displacement: " + str(bid["disp"]) + " (mm)\n", title=bid["link"], keep_on_top=True)
+                             + "Displacement: " + str(round(bid["disp"], 3)) + " (mm)\n"
+                             + "___________________________________________",
+                             title=bid["link"], keep_on_top=True)
                     break
         if "pplan" in str(event):
             for bid in results:
@@ -108,6 +117,9 @@ if __name__ == '__main__':
         if event == "backtoinit-results":
             window.close()
             window = init_screen.make_window()
+            selectAllMat_cur = False
+            selectAllMan_cur = False
+            selectAllBus_cur = False
 
         ##---GRAPH SCREEN CONTROLS---##
         if event == 'backtoresults':

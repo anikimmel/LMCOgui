@@ -44,9 +44,9 @@ def make_window(dataMaxes, theme=None):
                 [name('Max Mfg. Costs ($)'), sg.Input(s=7, key="costs_max"),
                  sg.Text("Data Maximum: $" + str(dataMaxes["cost"]))],
                 [name('Max Mass (kg)'), sg.Input(s=7, key="mass_max"),
-                 sg.Text("Data Maximum: " + str(dataMaxes["mass"]/1000) + " (kg)")],
+                 sg.Text("Data Maximum: " + str(round(dataMaxes["mass"]/1000, 3)) + " (kg)")],
                 [name('Max Displacement (mm)'), sg.Input(s=7, key="displacement_max"),
-                 sg.Text("Data Maximum: " + str(dataMaxes["disp"]) + " (mm)")],
+                 sg.Text("Data Maximum: " + str(round(dataMaxes["disp"], 3)) + " (mm)")],
                 [name('Max Lead Time (days)'), sg.Input(s=7, key="time_max"),
                  sg.Text("Data Maximum: " + str(round(dataMaxes["time"]/(24*60*60), 2)) + " (days)")]
     ]

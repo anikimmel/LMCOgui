@@ -1,37 +1,41 @@
 import PySimpleGUI as sg
 import matplotlib.pyplot as plt
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+
 
 # VARS CONSTS:
 _VARS = {'window': False,
          'fig_agg': False,
          'pltFig': False}
 
-
 # Theme for pyplot
 plt.style.use('Solarize_Light2')
 
 
 # Helper Functions
-def update_annot(ind, annot, sc, names):
+def update_annot(ind, annot, sc, names, im, ab, imgs):
     pos = sc.get_offsets()[ind["ind"][0]]
     annot.xy = pos
-    text = "{}".format(" ".join([names[n] for n in ind["ind"]]))
-    annot.set_text(text)
+    ab.xy = pos
+    annot.set_text(str(names[ind["ind"][0]]))
+    im.set_data(plt.imread(str(imgs[(ind["ind"][0])])))
     annot.get_bbox_patch().set_alpha(0.4)
 
 
-def hover(event, annot, sc, fig, ax, names):
+def hover(event, annot, sc, fig, ax, names, img, ab, imgs):
     vis = annot.get_visible()
     if event.inaxes == ax:
         cont, ind = sc.contains(event)
         if cont:
-            update_annot(ind, annot, sc, names)
+            update_annot(ind, annot, sc, names, img, ab, imgs)
             annot.set_visible(True)
+            ab.set_visible(True)
             fig.canvas.draw_idle()
         else:
             if vis:
                 annot.set_visible(False)
+                ab.set_visible(False)
                 fig.canvas.draw_idle()
 
 
@@ -74,7 +78,7 @@ def getData(bids, x_select, y_select):
     if y_select == 'Displacement':
         y_select = 'disp'
     return [bid[x_select.lower()] for bid in bids], [bid[y_select.lower()] for bid in bids], \
-           [bid["link"] for bid in bids], [bid["color"] for bid in bids]
+           [bid["link"] for bid in bids], [bid["color"] for bid in bids], [bid["pic"] for bid in bids]
 
 
 def drawChart(bids, x_select, y_select):
@@ -107,14 +111,20 @@ def drawChart(bids, x_select, y_select):
     y = dataXY[1]
     names = dataXY[2]
     colors = dataXY[3]
-    print(colors)
+    imgs = dataXY[4]
+    im = OffsetImage(plt.imread(str(imgs[0])))
     fig, ax = plt.subplots()
     sc = plt.scatter(x, y, c=colors, s=36, edgecolors='black')
     annot = ax.annotate("", xy=(0, 0), xytext=(20, 20), textcoords="offset points",
                         bbox=dict(boxstyle="round", fc="w"),
                         arrowprops=dict(arrowstyle="->"))
+    xybox = (75., -75.)
+    ab = AnnotationBbox(im, (0, 0), xybox=xybox, xycoords='data',
+                        boxcoords="offset points", pad=0.3, arrowprops=dict(arrowstyle="->"))
+    ax.add_artist(ab)
+    ab.set_visible(False)
     annot.set_visible(False)
-    fig.canvas.mpl_connect("motion_notify_event", lambda event: hover(event, annot, sc, fig, ax, names))
+    fig.canvas.mpl_connect("motion_notify_event", lambda event: hover(event, annot, sc, fig, ax, names, im, ab, imgs))
     plt.xlabel(x_select)
     plt.ylabel(y_select)
     DPI = fig.get_dpi()
@@ -131,13 +141,20 @@ def updateChart(bids, x_select, y_select):
     y = dataXY[1]
     names = dataXY[2]
     colors = dataXY[3]
+    imgs = dataXY[4]
+    im = OffsetImage(plt.imread(str(imgs[0])))
     fig, ax = plt.subplots()
     sc = plt.scatter(x, y, c=colors, s=36, edgecolors='black')
     annot = ax.annotate("", xy=(0, 0), xytext=(20, 20), textcoords="offset points",
                         bbox=dict(boxstyle="round", fc="w"),
                         arrowprops=dict(arrowstyle="->"))
     annot.set_visible(False)
-    fig.canvas.mpl_connect("motion_notify_event", lambda event: hover(event, annot, sc, fig, ax, names))
+    xybox = (75., -75.)
+    ab = AnnotationBbox(im, (0, 0), xybox=xybox, xycoords='data',
+                        boxcoords="offset points", pad=0.3, arrowprops=dict(arrowstyle="->"))
+    ax.add_artist(ab)
+    ab.set_visible(False)
+    fig.canvas.mpl_connect("motion_notify_event", lambda event: hover(event, annot, sc, fig, ax, names, im, ab, imgs))
     plt.xlabel(x_select)
     plt.ylabel(y_select)
     DPI = fig.get_dpi()
