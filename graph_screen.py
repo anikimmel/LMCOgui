@@ -78,11 +78,9 @@ def getData(bids, x_select, y_select):
 
 
 def drawChart(bids, x_select, y_select):
-    layout = [[sg.Button('Back to Options List', font=AppFont, enable_events=True, key='backtoresults')],
-                    [sg.T('Controls:')],
-                    [sg.Canvas(key='controls_cv')],
-                    [sg.T('Figure:')],
-                    [sg.Column(
+    layout = [[sg.T('Controls:'), sg.Canvas(key='controls_cv'), sg.Push(),
+                     sg.Button('Back to Options List', enable_events=True, key='backtoresults')],
+              [sg.Column(
                     layout=[
                         [sg.Canvas(key='fig_cv',
                                    # it's important that you set this size
@@ -90,8 +88,7 @@ def drawChart(bids, x_select, y_select):
                                    )]
                     ],
                     background_color='#DAE0E6',
-                    pad=(0, 0)
-                )],
+                    pad=(0, 0))],
               [sg.Text("Select X"),
                sg.OptionMenu(['Time', 'Cost', 'Mass', 'Displacement'], s=(15, 2), key='x_option', default_value='Time'),
                sg.Text("Select Y"),

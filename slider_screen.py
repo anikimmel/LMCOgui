@@ -54,10 +54,13 @@ def make_window(dataMaxes, theme=None):
     # Note - LOCAL Menu element is used (see about for how that's defined)
     layout = [[Menu([['File', ['Exit']], ['Edit', ['Edit Me', ]]],  k='-CUST MENUBAR-',p=0)],
               [sg.T('Generative Manufacturing Optimizer Tool', font='_ 14', justification='c', expand_x=True)],
+              [sg.HSep()],
               [sg.Button('View Agents Graph', key='agents', enable_events=True),
                sg.Button('View Lots Graph', key='lots', enable_events=True)],
               [sg.Col(layout_l, p=30), sg.Col(layout_r, p=30)],
               [[sg.Button('<< Go Back', key='backtoinit', enable_events=True), sg.Push(), sg.Button('Generate Options >>', key='generateoptions')]]]
 
-    window = sg.Window('The PySimpleGUI Element List', layout, finalize=True, right_click_menu=sg.MENU_RIGHT_CLICK_EDITME_VER_EXIT, keep_on_top=True, use_custom_titlebar=use_custom_titlebar)
+    window = sg.Window('The PySimpleGUI Element List', layout, finalize=True,
+                       right_click_menu=sg.MENU_RIGHT_CLICK_EDITME_VER_EXIT, keep_on_top=True,
+                       use_custom_titlebar=use_custom_titlebar, element_justification='c')
     return window

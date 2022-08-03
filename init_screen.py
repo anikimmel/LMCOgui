@@ -32,6 +32,7 @@ def make_window(theme=None):
     # Note - LOCAL Menu element is used (see about for how that's defined)
     layout = [[Menu([['File', ['Exit']], ['Edit', ['Edit Me', ]]], k='-CUST MENUBAR-', p=0)],
               [sg.T('Lockheed Martin Demo GUI', font='_ 14', justification='c', expand_x=True)],
+              [sg.HSep()],
               [sg.Text("Select Part: "), sg.OptionMenu(['Bracket'], s=(15, 2), key='design_option'),
                sg.Text("Quantity: "), sg.Input(s=15, key='quantity')],
               [sg.CalendarButton('Earliest Start Date', target='-CALStart-', pad=None,

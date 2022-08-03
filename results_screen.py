@@ -27,6 +27,7 @@ def make_window(parameters, response, dataMaxes, sort_on="score", default_sort_v
     # Note - LOCAL Menu element is used (see about for how that's defined)
     layout = [[Menu([['File', ['Exit']], ['Edit', ['Edit Me', ]]], k='-CUST MENUBAR-', p=0)],
               [sg.T('Lockheed Martin Demo GUI', font='_ 14', justification='c', expand_x=True)],
+              [sg.HSep()],
               [sg.Text("Sort: "),
                sg.OptionMenu(['Highest Score', 'Fastest', 'Cheapest', 'Lightest'], s=(15, 2),
                              key='sort_design_options', default_value=default_sort_val),

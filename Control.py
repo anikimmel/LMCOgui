@@ -7,7 +7,7 @@ import subprocess
 import graph_screen
 import webbrowser
 
-subprocess.Popen(
+proc = subprocess.Popen(
     ["C:\\Users\\Annie\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"])
 
 if __name__ == '__main__':
@@ -118,3 +118,4 @@ if __name__ == '__main__':
             y_sel = values["y_option"]
             graph_screen.updateChart(results, x_sel, y_sel)
     window.close()
+    proc.terminate()
