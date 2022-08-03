@@ -6,6 +6,7 @@ import slider_screen
 import subprocess
 import graph_screen
 import webbrowser
+import math
 
 proc = subprocess.Popen(
     ["C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"])
@@ -56,6 +57,11 @@ if __name__ == '__main__':
                 window = slider_screen.make_window(dataMaxes, 'DarkTeal12')
 
         ##---SLIDER SCREEN CONTROLS---##
+        if event == 'usealloptions':
+            window["costs_max"].update(math.ceil(dataMaxes["cost"]))
+            window["mass_max"].update(math.ceil(dataMaxes["mass"]/1000))
+            window["displacement_max"].update(math.ceil(dataMaxes["disp"]))
+            window["time_max"].update(math.ceil(dataMaxes["time"]/(24*60*60)))
         if event == 'generateoptions':
             parameters = slider_utilities.generate_parameters(values)
             window.close()

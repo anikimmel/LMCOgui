@@ -48,7 +48,8 @@ def make_window(dataMaxes, theme=None):
                 [name('Max Displacement (mm)'), sg.Input(s=7, key="displacement_max"),
                  sg.Text("Data Maximum: " + str(round(dataMaxes["disp"], 3)) + " (mm)")],
                 [name('Max Lead Time (days)'), sg.Input(s=7, key="time_max"),
-                 sg.Text("Data Maximum: " + str(round(dataMaxes["time"]/(24*60*60), 2)) + " (days)")]
+                 sg.Text("Data Maximum: " + str(round(dataMaxes["time"]/(24*60*60), 2)) + " (days)")],
+                [sg.Button("No Constraints", key='usealloptions', enable_events=True)]
     ]
 
     # Note - LOCAL Menu element is used (see about for how that's defined)
@@ -58,7 +59,8 @@ def make_window(dataMaxes, theme=None):
               [sg.Button('View Agents Graph', key='agents', enable_events=True),
                sg.Button('View Lots Graph', key='lots', enable_events=True)],
               [sg.Col(layout_l, p=30), sg.Col(layout_r, p=30)],
-              [[sg.Button('<< Go Back', key='backtoinit', enable_events=True), sg.Push(), sg.Button('Generate Options >>', key='generateoptions')]]]
+              [sg.Button('<< Go Back', key='backtoinit', enable_events=True), sg.Push(),
+               sg.Button('Generate Options >>', key='generateoptions')]]
 
     window = sg.Window('The PySimpleGUI Element List', layout, finalize=True,
                        right_click_menu=sg.MENU_RIGHT_CLICK_EDITME_VER_EXIT, keep_on_top=True,
