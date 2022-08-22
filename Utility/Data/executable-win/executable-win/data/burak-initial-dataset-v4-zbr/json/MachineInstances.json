@@ -50,6 +50,16 @@
     "CostCoefficient": 1
   },
   {
+    "Supplier": "Supplier-A",
+    "MachineName": "GF Machining Solutions AC Progress VP3-1",
+    "Type": "GF Machining Solutions AC Progress VP3",
+    "ShiftSchedule": "2-shifts",
+    "MaintenanceCycle[d]": 180,
+    "LastMainentance": "2022-02-05T00:00:00",
+    "TimeCoefficient": 1,
+    "CostCoefficient": 1
+  },
+  {
     "Supplier": "Supplier-B",
     "MachineName": "Stratasys F170-SB-1",
     "Type": "Stratasys-F170",
@@ -123,6 +133,16 @@
     "Supplier": "Supplier-B",
     "MachineName": "Inspection-Station-SB-1",
     "Type": "Inspection-Station",
+    "ShiftSchedule": "2-shifts",
+    "MaintenanceCycle[d]": 180,
+    "LastMainentance": "2022-02-05T00:00:00",
+    "TimeCoefficient": 1,
+    "CostCoefficient": 1
+  },
+  {
+    "Supplier": "Supplier-B",
+    "MachineName": "Manual support removal-1",
+    "Type": "Manual support removal",
     "ShiftSchedule": "2-shifts",
     "MaintenanceCycle[d]": 180,
     "LastMainentance": "2022-02-05T00:00:00",

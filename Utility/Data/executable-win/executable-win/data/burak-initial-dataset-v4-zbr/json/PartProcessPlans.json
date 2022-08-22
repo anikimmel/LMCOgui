@@ -292,7 +292,7 @@
   {
     "Name": "3-Axis-Subtractive-5",
     "Part": "Bracket",
-    "Link": "Ti6Al4V_2.5_axis_milling_y+y",
+    "Link": "Ti6Al4V_2.5_axis_milling_y+y-",
     "Material": "Ti6Al4V",
     "ManufacturingMethod": "3-Axis-Subtractive",
     "BulkGrams": 5800,
@@ -357,7 +357,7 @@
   {
     "Name": "SLM-Additive-7",
     "Part": "Bracket",
-    "Link": "Ti6Al4V_2.5_additive_x+",
+    "Link": "Ti6Al4V_additive_x+",
     "Material": "Ti6Al4Vpowder",
     "ManufacturingMethod": "SLM-Additive",
     "BulkGrams": 342.5609,
@@ -377,7 +377,7 @@
   {
     "Name": "SLM-Additive-8",
     "Part": "Bracket",
-    "Link": "Ti6Al4V_2.5_additive_x-",
+    "Link": "Ti6Al4V_additive_x-",
     "Material": "Ti6Al4Vpowder",
     "ManufacturingMethod": "SLM-Additive",
     "BulkGrams": 342.21,
@@ -397,7 +397,7 @@
   {
     "Name": "SLM-Additive-9",
     "Part": "Bracket",
-    "Link": "Ti6Al4V_2.5_additive_y+",
+    "Link": "Ti6Al4V_additive_y+",
     "Material": "Ti6Al4Vpowder",
     "ManufacturingMethod": "SLM-Additive",
     "BulkGrams": 351.3158,
@@ -417,7 +417,7 @@
   {
     "Name": "SLM-Additive-10",
     "Part": "Bracket",
-    "Link": "Ti6Al4V_2.5_additive_y-",
+    "Link": "Ti6Al4V_additive_y-",
     "Material": "Ti6Al4Vpowder",
     "ManufacturingMethod": "SLM-Additive",
     "BulkGrams": 345.1481,
@@ -437,7 +437,7 @@
   {
     "Name": "SLM-Additive-11",
     "Part": "Bracket",
-    "Link": "Ti6Al4V_2.5_additive_z+",
+    "Link": "Ti6Al4V_additive_z+",
     "Material": "Ti6Al4Vpowder",
     "ManufacturingMethod": "SLM-Additive",
     "BulkGrams": 358.402,
@@ -457,7 +457,7 @@
   {
     "Name": "SLM-Additive-12",
     "Part": "Bracket",
-    "Link": "Ti6Al4V_2.5_additive_z-",
+    "Link": "Ti6Al4V_additive_z-",
     "Material": "Ti6Al4Vpowder",
     "ManufacturingMethod": "SLM-Additive",
     "BulkGrams": 342.6005,
@@ -541,7 +541,7 @@
   {
     "Name": "FDM-Additive-1",
     "Part": "Bracket",
-    "Link": "ABS_additive_x+",
+    "Link": "ABS_Plastic_additive_x+",
     "Material": "ABSplastic",
     "ManufacturingMethod": "FDM-Additive",
     "BulkGrams": 260.6,
@@ -561,7 +561,7 @@
   {
     "Name": "FDM-Additive-2",
     "Part": "Bracket",
-    "Link": "ABS_additive_x-",
+    "Link": "ABS_Plastic_additive_x-",
     "Material": "ABSplastic",
     "ManufacturingMethod": "FDM-Additive",
     "BulkGrams": 261.5,
@@ -581,7 +581,7 @@
   {
     "Name": "FDM-Additive-3",
     "Part": "Bracket",
-    "Link": "ABS_additive_y+",
+    "Link": "ABS_Plastic_additive_y+",
     "Material": "ABSplastic",
     "ManufacturingMethod": "FDM-Additive",
     "BulkGrams": 259,
@@ -601,7 +601,7 @@
   {
     "Name": "FDM-Additive-4",
     "Part": "Bracket",
-    "Link": "ABS_additive_y-",
+    "Link": "ABS_Plastic_additive_y-",
     "Material": "ABSplastic",
     "ManufacturingMethod": "FDM-Additive",
     "BulkGrams": 264.2,
@@ -621,7 +621,7 @@
   {
     "Name": "FDM-Additive-5",
     "Part": "Bracket",
-    "Link": "ABS_additive_z+",
+    "Link": "ABS_Plastic_additive_z+",
     "Material": "ABSplastic",
     "ManufacturingMethod": "FDM-Additive",
     "BulkGrams": 230.9,
@@ -641,7 +641,7 @@
   {
     "Name": "FDM-Additive-6",
     "Part": "Bracket",
-    "Link": "ABS_additive_z-",
+    "Link": "ABS_Plastic_additive_z-",
     "Material": "ABSplastic",
     "ManufacturingMethod": "FDM-Additive",
     "BulkGrams": 259.8,
