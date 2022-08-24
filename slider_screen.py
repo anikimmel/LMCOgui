@@ -21,8 +21,9 @@ def make_window(dataMaxes, theme=None):
         Menu = sg.Menu
 
     layout_l = [
-                [sg.Text('Multi-Objective Parameters')],
+                [sg.Text('Multi-Objective Parameters', font='Any 12 underline bold')],
                 [sg.Text('You may specify weights on various performance objectives.')],
+                [sg.Text('If all sliders are set to 0, the objective function will use equal weights for every parameter.')],
                 [name('Manufacturing Costs'),
                  sg.Slider((0.0, 1.0), orientation='h', resolution=0.1, enable_events=True, tick_interval=0.2,
                            key="costs_coef")],
@@ -39,8 +40,9 @@ def make_window(dataMaxes, theme=None):
     ]
 
     layout_r = [
-                [sg.Text('Optimization Constraints')],
+                [sg.Text('Optimization Constraints', font='Any 12 underline bold')],
                 [sg.Text('You may specify constraints which will be used for defining the optimization space.')],
+                [sg.Text('If a maximum is unspecified then that parameter will be unconstrained.')],
                 [name('Max Mfg. Costs ($)'), sg.Input(s=7, key="costs_max"),
                  sg.Text("Data Maximum: $" + str(dataMaxes["cost"]))],
                 [name('Max Mass (kg)'), sg.Input(s=7, key="mass_max"),

@@ -63,6 +63,15 @@ if __name__ == '__main__':
             window["displacement_max"].update(math.ceil(dataMaxes["disp"]))
             window["time_max"].update(math.ceil(dataMaxes["time"]/(24*60*60)))
         if event == 'generateoptions':
+            # if any of the maximums are empty, just use the data maximums
+            if values["costs_max"] == "":
+                values["costs_max"] = math.ceil(dataMaxes["cost"])
+            if values["mass_max"] == "":
+                values["mass_max"] = math.ceil(dataMaxes["mass"]/1000)
+            if values["displacement_max"] == "":
+                values["displacement_max"] = math.ceil(dataMaxes["disp"])
+            if values["time_max"] == "":
+                values["time_max"] = math.ceil(dataMaxes["time"]/(24*60*60))
             parameters = slider_utilities.generate_parameters(values)
             window.close()
             window, results = results_screen.make_window(parameters, results, dataMaxes)
@@ -116,6 +125,13 @@ if __name__ == '__main__':
             for bid in results:
                 if bid["link"] == event[5:]:
                     sg.popup(str(bid["processPlan"]), title=bid["link"], keep_on_top=True)
+                    break
+        if "designf" in str(event):
+            for bid in results:
+                if bid["link"] == event[7:]:
+                    path = "C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\data\\burak-initial-dataset-v4-zbr\\Generative_Design_Data\\" + bid["link"]
+                    cmd = 'explorer "' + path + '"'
+                    subprocess.Popen(cmd)
                     break
         if event == "backtosliders":
             window.close()

@@ -30,7 +30,7 @@ def create_rows(max_cost, max_mass, max_disp, max_time, cost_coef, mass_coef, di
                                                              bar_color=(getParamBarColor(disp_coef), "grey"))]]
 
         layout_buttons = [
-            [sg.Col([[sg.Button('Design File'),
+            [sg.Col([[sg.Button('Design File', key=("designf"+bid["link"]), enable_events=True),
                       sg.Button('Supplier Info', key=("supplier"+bid["link"]), enable_events=True)]])],
             [sg.Col([[sg.Button('Process Plan', key=("pplan"+bid["link"]), enable_events=True),
                       sg.Button('Initiate Contract', button_color='green')]])]
@@ -112,6 +112,6 @@ def getParamBarColor(coef):
 
 
 def getImagePath(link, isGraphImage):
-    path = "C:\\Users\\akimmel\\Downloads\\Generative_Design_Data\\Generative_Design_Data\\"
+    path = "C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\data\\burak-initial-dataset-v4-zbr\\Generative_Design_Data\\"
     suffix = "\\part75x75.png" if isGraphImage else "\\part110x110.png"
     return path + str(link) + suffix

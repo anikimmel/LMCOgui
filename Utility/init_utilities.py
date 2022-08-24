@@ -27,5 +27,10 @@ def save_preferences(values):
 def create_checkboxes(options, category):
     checkboxes = [[sg.Checkbox('Select All', key='SelectAll' + category, enable_events=True)]]
     for option in options:
-        checkboxes.append([sg.Checkbox(option, key=option, enable_events=True)])
+        if option == "Supplier-A":
+            checkboxes.append([sg.Checkbox(option + " (only subtractive)", key=option, enable_events=True)])
+        elif option == "Supplier-B":
+            checkboxes.append([sg.Checkbox(option + " (only additive)", key=option, enable_events=True)])
+        else:
+            checkboxes.append([sg.Checkbox(option, key=option, enable_events=True)])
     return checkboxes

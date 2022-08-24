@@ -103,8 +103,7 @@ def drawChart(bids, x_select, y_select):
                                 finalize=True,
                                 resizable=True,
                                 location=(100, 100),
-                                element_justification="center",
-                                background_color='#FDF6E3')
+                                element_justification="center")
     _VARS['pltFig'] = plt.figure()
     dataXY = getData(bids, x_select, y_select)
     x = dataXY[0]
