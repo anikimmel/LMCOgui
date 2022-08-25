@@ -58,6 +58,7 @@ def getBids(design, preferences, quantity, earliest_start, due):
 
     return processResponse(r.json())
 
+
 def getProcessPlans():
     pp_path = PathDefs.json_path / "PartProcessPlans.json"
  #   part_plan_info = open('C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\data\\burak-initial-dataset-v4-zbr\\json\\PartProcessPlans.json')

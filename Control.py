@@ -8,6 +8,7 @@ import graph_screen
 import webbrowser
 import math
 
+print(PathDefs.executable_path)
 proc = subprocess.Popen(
     #["C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"]
     [PathDefs.executable_path])

@@ -3,11 +3,12 @@ from pathlib import Path
 
 data_directory = Path(__file__).resolve().parent / "Data"
 platform_info = platform.platform()
+platform_info = platform_info.lower()
 if ("win" in platform_info):
     executable_path = data_directory / "executable-win" / "executable-win" / "lmco.exe"
 elif ("linux" in platform_info):
     executable_path = data_directory / "executable-linux" / "lmco"
-elif ("macOS" in platform_info):
+elif ("macos" in platform_info):
     if ("arm" in platform_info):
         executable_path = data_directory / "executable-mac-arm" / "lmco"
     else:
