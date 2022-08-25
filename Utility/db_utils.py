@@ -1,6 +1,7 @@
 import json
 import requests
-from Utility import MaterialTypes
+from Utility import PathDefs, MaterialTypes
+
 # from pymongo import MongoClient
 
 request_counter = 0
@@ -57,9 +58,10 @@ def getBids(design, preferences, quantity, earliest_start, due):
 
     return processResponse(r.json())
 
-
 def getProcessPlans():
-    part_plan_info = open('C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\data\\burak-initial-dataset-v4-zbr\\json\\PartProcessPlans.json')
+    pp_path = PathDefs.json_path / "PartProcessPlans.json"
+ #   part_plan_info = open('C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\data\\burak-initial-dataset-v4-zbr\\json\\PartProcessPlans.json')
+    part_plan_info = open(pp_path)
     plans = json.load(part_plan_info)
     part_plan_info.close()
     return plans

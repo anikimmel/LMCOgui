@@ -1,6 +1,6 @@
 import init_screen
 import results_screen
-from Utility import init_utilities, MaterialTypes, MachiningTypes, Suppliers, db_utils, slider_utilities
+from Utility import PathDefs, init_utilities, MaterialTypes, MachiningTypes, Suppliers, db_utils, slider_utilities
 import PySimpleGUI as sg
 import slider_screen
 import subprocess
@@ -9,7 +9,8 @@ import webbrowser
 import math
 
 proc = subprocess.Popen(
-    ["C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"])
+    #["C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\lmco.exe"]
+    [PathDefs.executable_path])
 
 if __name__ == '__main__':
     window = init_screen.make_window()
@@ -129,7 +130,8 @@ if __name__ == '__main__':
         if "designf" in str(event):
             for bid in results:
                 if bid["link"] == event[7:]:
-                    path = "C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\data\\burak-initial-dataset-v4-zbr\\Generative_Design_Data\\" + bid["link"]
+                    # path = "C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\data\\burak-initial-dataset-v4-zbr\\Generative_Design_Data\\" + bid["link"]
+                    path = PathDefs.design_path + bid["link"]
                     cmd = 'explorer "' + path + '"'
                     subprocess.Popen(cmd)
                     break

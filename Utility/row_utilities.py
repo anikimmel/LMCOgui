@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from Utility import PathDefs
 
 NAME_SIZE = 20
 
@@ -112,6 +113,6 @@ def getParamBarColor(coef):
 
 
 def getImagePath(link, isGraphImage):
-    path = "C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\data\\burak-initial-dataset-v4-zbr\\Generative_Design_Data\\"
-    suffix = "\\part75x75.png" if isGraphImage else "\\part110x110.png"
-    return path + str(link) + suffix
+    # path = "C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\data\\burak-initial-dataset-v4-zbr\\Generative_Design_Data\\"
+    suffix = "part75x75.png" if isGraphImage else "part110x110.png"
+    return PathDefs.design_path / str(link) / suffix
