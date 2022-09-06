@@ -19,6 +19,7 @@ if __name__ == '__main__':
     selectAllMat_cur = False
     selectAllMan_cur = False
     selectAllBus_cur = False
+    all_results = []
     results = []
     dataMaxes = {}
     parameters = []
@@ -53,6 +54,7 @@ if __name__ == '__main__':
             if len(output) != 2:
                 sg.popup(str(output) + "Please select new options.", title="Select new options", keep_on_top=True)
             else:
+                all_results = output[0]
                 results = output[0]
                 dataMaxes = output[1]
                 window.close()
@@ -76,7 +78,7 @@ if __name__ == '__main__':
                 values["time_max"] = math.ceil(dataMaxes["time"]/(24*60*60))
             parameters = slider_utilities.generate_parameters(values)
             window.close()
-            window, results = results_screen.make_window(parameters, results, dataMaxes)
+            window, results = results_screen.make_window(parameters, all_results, dataMaxes)
         if event == 'agents':
             webbrowser.open("http://localhost:9090/agents-graph")
         if event == 'lots':
