@@ -46,6 +46,32 @@ def draw_figure(canvas, figure):
     return figure_canvas_agg
 
 
+def get_label(x_select, y_select):
+    xlabel = ylabel = ""
+    print(x_select)
+    print(y_select)
+
+    if x_select == 'time':
+        xlabel = 'Time (s)'
+    elif x_select == 'cost':
+        xlabel = 'Cost ($)'
+    elif x_select == 'mass':
+        xlabel = 'Mass (g)'
+    else:
+        xlabel = 'Displacement (mm)'
+
+    if y_select == 'time':
+        ylabel = 'Time (s)'
+    elif y_select == 'cost':
+        ylabel = 'Cost ($)'
+    elif y_select == 'mass':
+        ylabel = 'Mass (g)'
+    else:
+        ylabel = 'Displacement (mm)'
+
+    return xlabel, ylabel
+
+
 def draw_figure_w_toolbar(canvas, fig, canvas_toolbar):
     if canvas.children:
         for child in canvas.winfo_children():
@@ -124,8 +150,9 @@ def drawChart(bids, x_select, y_select):
     ab.set_visible(False)
     annot.set_visible(False)
     fig.canvas.mpl_connect("motion_notify_event", lambda event: hover(event, annot, sc, fig, ax, names, im, ab, imgs))
-    plt.xlabel(x_select)
-    plt.ylabel(y_select)
+    xlabel, ylabel = get_label(x_select.lower(), y_select.lower())
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     DPI = fig.get_dpi()
     fig.set_size_inches(404 * 2 / float(DPI), 404 / float(DPI))
     _VARS['fig_agg'] = draw_figure_w_toolbar(_VARS['window']['fig_cv'].TKCanvas, fig, _VARS['window']['controls_cv'].TKCanvas)
@@ -154,8 +181,9 @@ def updateChart(bids, x_select, y_select):
     ax.add_artist(ab)
     ab.set_visible(False)
     fig.canvas.mpl_connect("motion_notify_event", lambda event: hover(event, annot, sc, fig, ax, names, im, ab, imgs))
-    plt.xlabel(x_select)
-    plt.ylabel(y_select)
+    xlabel, ylabel = get_label(x_select.lower(), y_select.lower())
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
     DPI = fig.get_dpi()
     fig.set_size_inches(404 * 2 / float(DPI), 404 / float(DPI))
     _VARS['fig_agg'] = draw_figure_w_toolbar(_VARS['window']['fig_cv'].TKCanvas, fig, _VARS['window']['controls_cv'].TKCanvas)

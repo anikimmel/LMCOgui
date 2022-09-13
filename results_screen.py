@@ -34,7 +34,7 @@ def make_window(parameters, response, dataMaxes, sort_on="score", default_sort_v
                sg.Button("Re-Sort!", key="re-sort", enable_events=True),
                sg.Button("Create New Request", key="backtoinit-results", enable_events=True),
                sg.Push(), sg.Button("View Graphs", key="graphs", enable_events=True)],
-              [sg.Text("Objective Function Parameter Weights", font="Any 12 underline bold"), sg.Text("(Darker Blue == Heavier Weighting)")],
+              [sg.Text("Evaluation Factor Parameter Weights", font="Any 12 underline bold"), sg.Text("(Darker Blue == Heavier Weighting)")],
               [sg.Text("Cost: " + str(round(cost_coef, 3))),
                sg.Canvas(background_color=row_utilities.getParamBarColor(cost_coef), size=(20, 20)),
                sg.Text("Mass: " + str(round(mass_coef, 3))),

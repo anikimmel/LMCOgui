@@ -16,6 +16,7 @@ proc = subprocess.Popen(
 if __name__ == '__main__':
     window = init_screen.make_window()
     preferences = []
+    prev_factor_values = {}
     selectAllMat_cur = False
     selectAllMan_cur = False
     selectAllBus_cur = False
@@ -76,6 +77,7 @@ if __name__ == '__main__':
                 values["displacement_max"] = math.ceil(dataMaxes["disp"])
             if values["time_max"] == "":
                 values["time_max"] = math.ceil(dataMaxes["time"]/(24*60*60))
+            prev_factor_values = values
             parameters = slider_utilities.generate_parameters(values)
             window.close()
             window, results = results_screen.make_window(parameters, all_results, dataMaxes)
@@ -133,14 +135,17 @@ if __name__ == '__main__':
         if "designf" in str(event):
             for bid in results:
                 if bid["link"] == event[7:]:
-                    # path = "C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\data\\burak-initial-dataset-v4-zbr\\Generative_Design_Data\\" + bid["link"]
-                    path = PathDefs.design_path + bid["link"]
-                    cmd = 'explorer "' + path + '"'
+                    # path = "`C:\\Users\\akimmel\\PycharmProjects\\LMCOgui\\Utility\\Data\\executable-win\\executable-win\\data\\burak-initial-dataset-v4-zbr\\Generative_Design_Data\\" + bid["link"]
+                    path = PathDefs.design_path / bid["link"]
+                    cmd = 'explorer "' + str(path) + '"'
                     subprocess.Popen(cmd)
                     break
         if event == "backtosliders":
             window.close()
-            window = slider_screen.make_window(dataMaxes, 'DarkTeal12')
+            if len(prev_factor_values) != 0:
+                window = slider_screen.make_window(dataMaxes, 'DarkTeal12', prev_factor_values)
+            else:
+                window = slider_screen.make_window(dataMaxes, 'DarkTeal12')
         if event == "backtoinit-results":
             window.close()
             window = init_screen.make_window()
