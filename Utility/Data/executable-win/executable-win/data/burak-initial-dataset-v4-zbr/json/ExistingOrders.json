@@ -86,7 +86,7 @@
     "Part": "Bracket",
     "Quantity": 1000,
     "EarliestStartDate": "2022-02-05T00:00:00",
-    "DueDate": "2022-02-11T23:59:59",
+    "DueDate": "2022-02-18T23:59:59",
     "ProcessPlan": "FDM-Additive-1"
   }
 ]
